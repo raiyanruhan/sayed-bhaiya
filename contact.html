@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Sayed Ibn Masud | Product Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3A415A;
+            --accent: #4BC6B9;
+            --secondary: #F0F2F5;
+            --text: #1C1E21;
+            --callout: #F4A261;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background-color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-dot.active {
+            width: 50px;
+            height: 50px;
+            opacity: 0.5;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-hover-effect {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-hover-effect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-hover-effect:active {
+            transform: translateY(1px);
+        }
+        
+        .hamburger {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 24px;
+            height: 24px;
+            position: relative;
+        }
+        
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            top: 6px;
+        }
+        
+        .hamburger-line:nth-child(2) {
+            top: 12px;
+        }
+        
+        .hamburger-line:nth-child(3) {
+            top: 18px;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg);
+            top: 12px;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 12px;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .sticky-nav {
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-nav.scrolled {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 2rem auto;
+        }
+        
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            color: white;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .contact-btn i {
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .more-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 1rem auto;
+            background-color: var(--secondary);
+            color: var(--primary);
+            width: 120px;
+            cursor: pointer;
+        }
+        
+        .more-btn i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .more-btn.active i {
+            transform: rotate(180deg);
+        }
+        
+        .hidden-contacts {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .hidden-contacts.visible {
+            max-height: 1000px;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+
+    <!-- Navigation -->
+    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="/" class="nav-link font-medium">Home</a>
+                <a href="/about.html" class="nav-link font-medium">About</a>
+                <a href="/experience.html" class="nav-link font-medium">Experience</a>
+                <a href="/contact.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Contact</a>
+            </nav>
+            
+            <!-- Mobile Hamburger -->
+            <div class="md:hidden hamburger" id="hamburger">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu fixed inset-0 bg-white z-40 flex flex-col items-center justify-center md:hidden" id="mobileMenu">
+            <!-- Exit Cross Button -->
+            <button id="mobileMenuClose" aria-label="Close menu" class="absolute top-6 right-6 text-3xl text-gray-700 hover:text-accent focus:outline-none">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            <nav class="flex flex-col items-center space-y-8">
+            <a href="/" class="text-2xl font-medium nav-link">Home</a>
+            <a href="/about.html" class="text-2xl font-medium nav-link">About</a>
+            <a href="/experience.html" class="text-2xl font-medium nav-link">Experience</a>
+            <a href="/contact.html" class="text-2xl font-medium nav-link text-accent" style="color: var(--accent);">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-[40vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--primary);">Let's Connect</h1>
+            <div class="section-divider"></div>
+            <p class="text-xl md:text-2xl text-gray-600">I'm always open to discussing new opportunities and collaborations</p>
+        </div>
+    </section>
+
+    <!-- Contact Options Section -->
+    <section class="py-12 px-6 bg-white">
+        <div class="max-w-md mx-auto animate-on-scroll">
+            <!-- Primary Contact Buttons -->
+            <div class="space-y-4">
+                <!-- Direct Message -->
+                <!-- Direct Message Button -->
+                <a id="directMessageBtn" class="contact-btn btn-hover-effect" style="background-color: teal; cursor: pointer;">
+                    <img src="comment.png" alt="Comment Icon" style="width: 1.25rem; height: 1.25rem; margin-right: 1rem;">
+                    <span>Direct Message</span>
+                    <div class="loading-spinner"></div>
+                </a>
+
+                <!-- Direct Message Modal -->
+                <div id="directMessageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 opacity-0 pointer-events-none">
+                    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative transform scale-95 transition-transform duration-300"
+                         style="font-family: 'Montserrat', sans-serif;">
+                        <!-- Close Button -->
+                        <button id="closeDirectMessageModal" aria-label="Close" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-accent focus:outline-none">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <h2 class="text-2xl font-bold mb-6 text-center" style="color: var(--primary); font-family: 'Poppins', sans-serif;">Direct Message</h2>
+                        <form id="directMessageForm" class="space-y-5">
+                            <div>
+                                <label for="dmName" class="block mb-1 text-sm font-medium text-gray-700">Your Name</label>
+                                <input type="text" id="dmName" name="name" required
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label for="dmEmail" class="block mb-1 text-sm font-medium text-gray-700">Your E-mail Address</label>
+                                <input type="email" id="dmEmail" name="email" required
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" placeholder="Enter your email">
+                            </div>
+                            <div>
+                                <label for="dmMessage" class="block mb-1 text-sm font-medium text-gray-700">Your Message</label>
+                                <textarea id="dmMessage" name="message" rows="4" required
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base resize-none" placeholder="Type your message"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full py-3 rounded-lg font-semibold text-green-700 bg-green-300 hover:bg-green-500 transition duration-200 btn-hover-effect flex items-center justify-center">
+                                <span>Send Message</span>
+                                <svg id="dmFormSpinner" class="ml-3 h-5 w-5 animate-spin hidden" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="white" d="M4 12a8 8 0 018-8v8z"></path>
+                                </svg>
+                            </button>
+                            <div id="dmFormSuccess" class="hidden text-green-600 text-center font-medium mt-2">Message sent successfully!</div>
+                            <div id="dmFormError" class="hidden text-red-600 text-center font-medium mt-2">Failed to send message. Please try again.</div>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+                    // Modal open/close logic
+                    const directMessageBtn = document.getElementById('directMessageBtn');
+                    const directMessageModal = document.getElementById('directMessageModal');
+                    const closeDirectMessageModal = document.getElementById('closeDirectMessageModal');
+                    const dmForm = document.getElementById('directMessageForm');
+                    const dmFormSpinner = document.getElementById('dmFormSpinner');
+                    const dmFormSuccess = document.getElementById('dmFormSuccess');
+                    const dmFormError = document.getElementById('dmFormError');
+
+                    function openDMModal() {
+                        directMessageModal.classList.remove('opacity-0', 'pointer-events-none');
+                        directMessageModal.classList.add('opacity-100');
+                        setTimeout(() => {
+                            directMessageModal.querySelector('input, textarea').focus();
+                            directMessageModal.querySelector('div').classList.add('scale-100');
+                        }, 10);
+                    }
+                    function closeDMModal() {
+                        directMessageModal.classList.remove('opacity-100');
+                        directMessageModal.classList.add('opacity-0', 'pointer-events-none');
+                        dmFormSuccess.classList.add('hidden');
+                        dmFormError.classList.add('hidden');
+                        dmForm.reset();
+                    }
+                    directMessageBtn.addEventListener('click', openDMModal);
+                    closeDirectMessageModal.addEventListener('click', closeDMModal);
+                    directMessageModal.addEventListener('click', (e) => {
+                        if (e.target === directMessageModal) closeDMModal();
+                    });
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape' && directMessageModal.classList.contains('opacity-100')) closeDMModal();
+                    });
+
+                    // Animate modal in/out
+                    // No need to toggle display, just use opacity and pointer-events
+
+                    // Form submit (demo, no backend)
+                    dmForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        dmFormSpinner.classList.remove('hidden');
+                        dmFormSuccess.classList.add('hidden');
+                        dmFormError.classList.add('hidden');
+                        // Simulate async send
+                        setTimeout(() => {
+                            dmFormSpinner.classList.add('hidden');
+                            dmFormSuccess.classList.remove('hidden');
+                            setTimeout(closeDMModal, 1500);
+                        }, 1200);
+                    });
+                </script>
+                <style>
+                    #directMessageModal {
+                        opacity: 0;
+                        pointer-events: none;
+                        transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+                    }
+                    #directMessageModal.opacity-100 {
+                        opacity: 1;
+                        pointer-events: auto;
+                    }
+                    #directMessageModal > div {
+                        transform: scale(0.95);
+                        transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+                    }
+                    #directMessageModal.opacity-100 > div {
+                        transform: scale(1);
+                    }
+                    @media (max-width: 640px) {
+                        #directMessageModal > div {
+                            padding: 1.5rem;
+                        }
+                    }
+                </style>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #0A66C2;">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                    <div class="loading-spinner"></div>
+                </a>
+                
+                <!-- Email -->
+                <a href="mailto:sayedibnmasud@gmail.com" class="contact-btn btn-hover-effect" style="background-color: #EA4335;">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                    <div class="loading-spinner"></div>
+                </a>
+                
+                <!-- WhatsApp -->
+                <a href="https://wa.me/+8801773351299" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #25D366;">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                    <div class="loading-spinner"></div>
+                </a>
+            </div>
+            
+            <!-- More Button -->
+            <div class="text-center">
+                <div class="more-btn btn-hover-effect" id="moreBtn">
+                    <span>More</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <!-- Hidden Contact Options -->
+            <div class="hidden-contacts" id="hiddenContacts">
+                <div class="space-y-4">
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #1877F2;">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                        <div class="loading-spinner"></div>
+                    </a>
+                    
+                    <!-- GitHub -->
+                    <a href="https://github.com/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #181717;">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                        <div class="loading-spinner"></div>
+                    </a>
+                    
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                        <div class="loading-spinner"></div>
+                    </a>
+                    
+                    <!-- Messenger -->
+                    <a href="https://m.me/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #006AFF;">
+                        <i class="fab fa-facebook-messenger"></i>
+                        <span>Messenger</span>
+                        <div class="loading-spinner"></div>
+                    </a>
+                    
+                    <!-- Phone -->
+                    <a href="tel:+880 1773-351299" class="contact-btn btn-hover-effect" style="background-color: var(--accent);">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Call</span>
+                        <div class="loading-spinner"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Response Time Section -->
+    <section class="py-12 px-6 bg-gray-50">
+        <div class="max-w-2xl mx-auto text-center animate-on-scroll">
+            <div class="bg-white p-8 rounded-xl shadow-sm">
+                <i class="fas fa-clock text-4xl mb-4" style="color: var(--accent);"></i>
+                <h3 class="text-2xl font-bold mb-4" style="color: var(--primary);">Response Time</h3>
+                <p class="text-gray-600 mb-6">I'll try to respond within 24 hours. Let's build something together!</p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-accent h-2.5 rounded-full" style="width: 90%; background-color: var(--accent);"></div>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">I will try to contact!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="/" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+                    <p class="mt-2 text-gray-500">© <span id="currentYear"></span> All rights reserved.</p>
+                </div>
+                
+                <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
+                    <a href="/" class="nav-link font-medium">Home</a>
+                    <a href="/about.html" class="nav-link font-medium">About</a>
+                    <a href="/experience.html" class="nav-link font-medium">Experience</a>
+                    <a href="/contact.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Contact</a>
+                </nav>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500">
+                <p>Designed and developed by <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="font-medium" style="color: var(--accent);">Raiyan Bin Rashid</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');        
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+        });
+        
+        document.querySelectorAll('a, button, .contact-btn').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('active');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('active');
+            });
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu when clicking the exit cross button
+        mobileMenuClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('open');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            }
+        });
+
+        // Sticky Navigation
+        const header = document.querySelector('.sticky-nav');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animate on Scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            scrollObserver.observe(element);
+        });
+
+        // More Button Functionality
+        const moreBtn = document.getElementById('moreBtn');
+        const hiddenContacts = document.getElementById('hiddenContacts');
+        
+        moreBtn.addEventListener('click', () => {
+            moreBtn.classList.toggle('active');
+            hiddenContacts.classList.toggle('visible');
+        });
+
+        // Loading Spinner for Contact Buttons
+        document.querySelectorAll('.contact-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Only show spinner for external links
+                if (this.getAttribute('href') && 
+                    (this.getAttribute('href').startsWith('http') || 
+                     this.getAttribute('href').startsWith('mailto') || 
+                     this.getAttribute('href').startsWith('tel'))) {
+                    
+                    const spinner = this.querySelector('.loading-spinner');
+                    const text = this.querySelector('span');
+                    
+                    // Show spinner and hide text
+                    spinner.style.display = 'block';
+                    text.style.visibility = 'hidden';
+                    
+                    // Set timeout to handle cases where the link doesn't actually navigate away
+                    setTimeout(() => {
+                        spinner.style.display = 'none';
+                        text.style.visibility = 'visible';
+                    }, 3000);
+                }
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Page transition effect
+        document.querySelectorAll('a').forEach(link => {
+            if (link.href.includes(window.location.origin) && !link.href.includes('#')) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.body.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

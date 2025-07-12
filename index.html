@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayed Ibn Masud | Product Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #3A415A;
+            --accent: #4BC6B9;
+            --secondary: #F0F2F5;
+            --text: #1C1E21;
+            --callout: #F4A261;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background-color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-dot.active {
+            width: 50px;
+            height: 50px;
+            opacity: 0.5;
+        }
+        
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--accent);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent); }
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-hover-effect {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-hover-effect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-hover-effect:active {
+            transform: translateY(1px);
+        }
+        
+        .overlay-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .overlay-reveal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+            z-index: 1;
+        }
+        
+        .overlay-reveal:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .overlay-reveal-content {
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+        
+        .overlay-reveal:hover .overlay-reveal-content {
+            color: white;
+        }
+        
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .hamburger {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .sticky-nav {
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-nav.scrolled {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: var(--accent);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--accent);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Navigation -->
+    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="/" class="nav-link font-medium">Home</a>
+                <a href="about.html" class="nav-link font-medium">About</a>
+                <a href="/experience.html" class="nav-link font-medium">Experience</a>
+                <a href="/contact.html" class="nav-link font-medium">Contact</a>
+            </nav>
+            
+            <!-- Mobile Hamburger -->
+            <div class="md:hidden hamburger" id="hamburger">
+                <div class="hamburger-line mb-1.5"></div>
+                <div class="hamburger-line mb-1.5"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu fixed inset-0 bg-white z-40 flex flex-col items-center justify-center md:hidden" id="mobileMenu">
+            <nav class="flex flex-col items-center space-y-8">
+                <a href="/" class="text-2xl font-medium nav-link">Home</a>
+                <a href="/about.html" class="text-2xl font-medium nav-link">About</a>
+                <a href="/experience.html" class="text-2xl font-medium nav-link">Experience</a>
+                <a href="/contact.html" class="text-2xl font-medium nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="animate-on-scroll">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4" style="color: var(--primary);">Sayed Ibn Masud</h1>
+                <h2 class="text-xl md:text-2xl font-semibold mb-6" style="color: var(--primary);">Business Operations Manager @ SELISE</h2>
+                <p class="text-2xl md:text-3xl font-medium mb-8 typewriter inline-block align-middle" style="color: var(--accent); border-right-width: 2px; border-right-style: solid; border-right-color: var(--accent); padding-right: 0.2em;"> quisquam praesentium</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="/experience.html" class="btn-hover-effect px-8 py-3 rounded-full font-medium text-white text-center sm:w-auto w-full" style="background-color: var(--accent);">View Experience</a>
+                    <a href="/contact.html" class="btn-hover-effect px-8 py-3 rounded-full font-medium border-2 text-center sm:w-auto w-full" style="border-color: var(--accent); color: var(--accent);">Contact Me</a>
+                </div>
+            </div>
+            
+            <div class="animate-on-scroll flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4" style="border-color: var(--accent);">
+                    <img src="https://media.licdn.com/dms/image/v2/D5603AQE5YqqUeAZ99A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1719818971496?e=1757548800&v=beta&t=MRVrH6lcsMCkLhQDGApD6H0RPPZBD6ZCjr9y7A3PJcE" 
+                         alt="Sayed Ibn Masud" 
+                         class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="max-w-4xl mx-auto animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" style="color: var(--primary);">About Me</h2>
+            
+            <div class="bg-gray-50 rounded-xl p-8 shadow-sm">
+                <p class="text-lg md:text-xl mb-8 leading-relaxed">
+                    I lead cross-functional teams and design operational systems that scale. My focus is on aligning business goals with technical delivery to create impactful products and services.
+                </p>
+                <p class="text-lg md:text-xl mb-8 leading-relaxed">
+                    With expertise in business operations, product strategy, and leadership, I bridge the gap between vision and execution to drive organizational success.
+                </p>
+                
+                <div class="text-center">
+                    <a href="/about.html" class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium text-white" style="background-color: var(--accent);">
+                        More about me →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Snapshot -->
+    <section class="py-20 px-6 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 animate-on-scroll" style="color: var(--primary);">Professional Experience</h2>
+            
+            <div class="space-y-8">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Business Operations Manager</h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">SELISE • 2025–Present</p>
+                    <p class="text-gray-600">Leading business operations and strategic initiatives to drive growth and operational excellence.</p>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Deputy Manager</h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">SELISE • 2023–2024</p>
+                    <p class="text-gray-600">Supported business operations and managed key projects to improve organizational efficiency.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 animate-on-scroll">
+                <a href="/experience.html" class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium border-2" style="border-color: var(--accent); color: var(--accent);">
+                    Full Experience →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-xl p-8 text-center shadow-sm animate-on-scroll">
+                    <div class="text-5xl font-bold mb-2 counter" data-target="8" style="color: var(--accent);">0</div>
+                    <h3 class="text-xl font-semibold" style="color: var(--primary);">Years Experience</h3>
+                </div>
+                
+                <div class="bg-gray-50 rounded-xl p-8 text-center shadow-sm animate-on-scroll">
+                    <div class="text-5xl font-bold mb-2 counter" data-target="24" style="color: var(--accent);">0</div>
+                    <h3 class="text-xl font-semibold" style="color: var(--primary);">Projects Completed</h3>
+                </div>
+                
+                <div class="bg-gray-50 rounded-xl p-8 text-center shadow-sm animate-on-scroll">
+                    <div class="text-5xl font-bold mb-2 counter" data-target="15" style="color: var(--accent);">0</div>
+                    <h3 class="text-xl font-semibold" style="color: var(--primary);">Teams Led</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-6 bg-gray-50">
+        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--primary);">Want to work together or connect professionally?</h2>
+            <p class="text-xl mb-8 text-gray-600">I'm always open to discussing new opportunities and collaborations.</p>
+            
+            <a href="/contact.html" class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium text-white" style="background-color: var(--accent);">
+                Contact Me →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="/" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+                    <p class="mt-2 text-gray-500">© <span id="currentYear"></span> All rights reserved.</p>
+                </div>
+                
+                <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
+                    <a href="/" class="nav-link font-medium">Home</a>
+                    <a href="/about.html" class="nav-link font-medium">About</a>
+                    <a href="/experience.html" class="nav-link font-medium">Experience</a>
+                    <a href="/contact.html" class="nav-link font-medium">Contact</a>
+                </nav>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500">
+                <p>Designed and developed by <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="font-medium" style="color: var(--accent);">Raiyan Bin Rashid</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');        
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+            
+            cursorOutline.style.left = `${e.clientX}px`;
+            cursorOutline.style.top = `${e.clientY}px`;
+        });
+        
+        document.querySelectorAll('a, button').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('active');
+                cursorOutline.classList.add('active');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('active');
+                cursorOutline.classList.remove('active');
+            });
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            }
+        });
+
+        // Sticky Navigation
+        const header = document.querySelector('.sticky-nav');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Typewriter Effect
+        const typewriterElement = document.querySelector('.typewriter');
+        const text = typewriterElement.textContent;
+        typewriterElement.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < text.length) {
+                typewriterElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                typewriterElement.style.borderRight = 'none';
+            }
+        };
+        
+        // Start typewriter when element is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typeWriter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(typewriterElement);
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+        
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.textContent;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.textContent = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.textContent = target;
+                }
+            });
+        };
+        
+        // Start counters when section is in view
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Animate on Scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            scrollObserver.observe(element);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Page transition effect
+        document.querySelectorAll('a').forEach(link => {
+            if (link.href.includes(window.location.origin) && !link.href.includes('#')) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.body.classList.add('fade-out');
+                    
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
