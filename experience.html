@@ -24,6 +24,7 @@
             background-color: white;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            transition: opacity 0.3s ease;
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -239,9 +240,59 @@
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
         }
+        
+        /* Page transition overlay */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 99999;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        
+        .transition-overlay.active {
+            transform: translateX(0);
+        }
+        
+        /* Mobile menu close button */
+        .close-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu nav a {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .experience-card {
+                padding: 1.5rem;
+            }
+            
+            .company-logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
+    <!-- Page Transition Overlay -->
+    <div class="transition-overlay"></div>
+    
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
 
@@ -268,7 +319,11 @@
         
         <!-- Mobile Menu -->
         <div class="mobile-menu fixed inset-0 bg-white z-40 flex flex-col items-center justify-center md:hidden" id="mobileMenu">
-            <nav class="flex flex-col items-center space-y-8">
+            <button id="mobileMenuClose" aria-label="Close menu" class="close-btn absolute top-6 right-6 text-3xl text-gray-700 hover:text-accent focus:outline-none">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            
+            <nav class="flex flex-col items-center space-y-6">
                 <a href="index.html" class="text-2xl font-medium nav-link">Home</a>
                 <a href="about.html" class="text-2xl font-medium nav-link">About</a>
                 <a href="experience.html" class="text-2xl font-medium nav-link text-accent" style="color: var(--accent);">Experience</a>
@@ -293,7 +348,7 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" style="color: var(--primary);">Professional Roles</h2>
                 
                 <!-- SELISE Group -->
-                <div class="experience-card p-8 mb-12 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://scontent-sin2-3.xx.fbcdn.net/v/t39.30808-6/301013846_1073122106781392_7819417936663582116_n.png?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Hp-1NAF4TvoQ7kNvwGwRrpl&_nc_oc=AdnfU1PhANq6W9do7qDkihKQv7cgJQ3Jx94w9rGDVWdy0LGrQlmhdEVPNBQKo_2CutiGW8wks-_gDwPPgqOZ9Z5S&_nc_zt=23&_nc_ht=scontent-sin2-3.xx&_nc_gid=f_qKjmwoLbqD8_XZe42moA&oh=00_AfRpm2G3V2u3ut0Fj20jxLmPWOEoOc5hpllxaRVH4qi7XQ&oe=687822D0" alt="SELISE Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
@@ -306,7 +361,7 @@
                                     </svg>
                                     Dhaka, Bangladesh
                                 </span>
-                                <span class="flex items-center mr-4 mb-2"></span>
+                                <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
@@ -365,20 +420,20 @@
                 </div>
                 
                 <!-- North South University -->
-                <div class="experience-card p-8 mb-12 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://logowik.com/content/uploads/images/north-south-university1451.jpg" alt="NSU Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
                             <h3 class="text-2xl font-bold" style="color: var(--primary);">North South University</h3>
                             <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-600">
-                                <span class="flex items-center mr-4 mb-2"></span>
+                                <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
                                     Dhaka, Bangladesh
                                 </span>
-                                <span class="flex items-center mr-4 mb-2"></span>
+                                <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
@@ -407,20 +462,20 @@
                 </div>
                 
                 <!-- Projuktir Avijatri -->
-                <div class="experience-card p-8 mb-12 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://cdn.brandfetch.io/id4SaOIC1t/w/234/h/114/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1747528380265" alt="Projuktir Avijatri Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
                             <h3 class="text-2xl font-bold" style="color: var(--primary);">Projuktir Avijatri</h3>
                             <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-600">
-                                <span class="flex items-center mr-4 mb-2"></span>
+                                <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
                                     Dhaka, Bangladesh
                                 </span>
-                                <span class="flex items-center mr-4 mb-2"></span>
+                                <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
@@ -458,7 +513,7 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" style="color: var(--primary);">Volunteering & Community</h2>
                 
                 <!-- Mozilla -->
-                <div class="experience-card p-8 mb-8 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-8 animate-on-scroll">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://assets.mofoprod.net/network/images/mo-fo_logo-bw.2e16d0ba.fill-890x890-c100.format-jpeg_ygYukGZ.jpg" alt="Mozilla Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
@@ -501,7 +556,7 @@
                 </div>
                 
                 <!-- Microsoft -->
-                <div class="experience-card p-8 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 animate-on-scroll">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://www.pngmart.com/files/4/Microsoft-Logo-PNG-Photos.png" alt="Microsoft Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
@@ -513,7 +568,7 @@
                         </div>
                     </div>
                     
-                    <div class="pl-4 md:pl-4 text-center md:text-left"></div>
+                    <div class="pl-4">
                         <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Microsoft Student Partner</h4>
                         <p class="text-gray-600 mb-3">2016 – 2017</p>
                         <p class="text-gray-700">Promoted Microsoft developer tools and technologies on campus through workshops and hackathons. Organized tech events and provided student support for Microsoft products.</p>
@@ -579,10 +634,18 @@
         // Mobile Menu Toggle
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
         
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        });
+        
+        mobileMenuClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = 'auto';
         });
         
         // Close mobile menu when clicking outside
@@ -590,6 +653,7 @@
             if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
                 hamburger.classList.remove('active');
                 mobileMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
             }
         });
 
@@ -641,17 +705,30 @@
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
         // Page transition effect
+        const transitionOverlay = document.querySelector('.transition-overlay');
+        
         document.querySelectorAll('a').forEach(link => {
-            if (link.href.includes(window.location.origin) && !link.href.includes('#')) {
+            if (link.href.includes(window.location.origin) && !link.href.includes('#') && link.href !== window.location.href) {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    document.body.style.opacity = '0';
+                    const targetUrl = link.href;
                     
+                    // Show transition overlay
+                    transitionOverlay.classList.add('active');
+                    
+                    // Wait for transition to complete
                     setTimeout(() => {
-                        window.location.href = link.href;
-                    }, 300);
+                        window.location.href = targetUrl;
+                    }, 600);
                 });
             }
+        });
+        
+        // Hide overlay when page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                transitionOverlay.classList.remove('active');
+            }, 100);
         });
     </script>
 </body>
