@@ -25,7 +25,6 @@
             background-color: white;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            transition: opacity 0.3s ease;
             padding-bottom: 72px; /* Space for bottom nav */
         }
         
@@ -199,7 +198,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: white;
             z-index: 99999;
             transform: translateY(100%);
             transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
@@ -284,6 +282,28 @@
             40%, 80% { transform: translateX(3px); }
         }
         
+        /* Mobile Header */
+        .mobile-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+        }
+        
+        .mobile-header-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+        }
+        
         @media (min-width: 768px) {
             .bottom-nav {
                 display: none;
@@ -291,6 +311,14 @@
             
             body {
                 padding-bottom: 0;
+            }
+            
+            .mobile-header {
+                display: none;
+            }
+            
+            .desktop-header {
+                display: flex;
             }
         }
         
@@ -317,17 +345,23 @@
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
 
-    <!-- Navigation -->
-    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-center items-center">
-
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8">
+    <!-- Desktop Navigation -->
+    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm desktop-header">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Navigation aligned to the right -->
+            <nav class="flex space-x-8">
                 <a href="index.html" class="nav-link font-medium">Home</a>
                 <a href="about.html" class="nav-link font-medium">About</a>
                 <a href="experience.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Experience</a>
                 <a href="contact.html" class="nav-link font-medium">Contact</a>
             </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Header (only shows on mobile) -->
+    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm mobile-header">
+        <div class="flex justify-center">
+            <a href="index.html" class="mobile-header-title">Sayed Ibn Masud</a>
         </div>
     </header>
 
@@ -681,24 +715,6 @@
             scrollObserver.observe(element);
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -729,28 +745,6 @@
             }, 100);
         });
 
-        // Bottom navigation active state
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        const navItems = {
-            'index.html': 'navHome',
-            'about.html': 'navAbout',
-            'experience.html': 'navExperience',
-            'contact.html': 'navContact'
-        };
-        
-        // Reset all active states
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        
-        // Set active state for current page
-        if (navItems[currentPage]) {
-            const activeNavItem = document.getElementById(navItems[currentPage]);
-            if (activeNavItem) {
-                activeNavItem.classList.add('active');
-            }
-        }
-        
         // Bottom nav click animation
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
