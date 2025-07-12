@@ -233,6 +233,73 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        @media (max-width: 640px) {
+            .modal-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+            
+            .contact-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-section {
+                padding-top: 6rem;
+                padding-bottom: 4rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -242,11 +309,11 @@
     <!-- Navigation -->
     <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
+            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
             
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-8">
-                <a href="/" class="nav-link font-medium">Home</a>
+                <a href="index.html" class="nav-link font-medium">Home</a>
                 <a href="/about.html" class="nav-link font-medium">About</a>
                 <a href="/experience.html" class="nav-link font-medium">Experience</a>
                 <a href="/contact.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Contact</a>
@@ -267,7 +334,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
             <nav class="flex flex-col items-center space-y-8">
-            <a href="/" class="text-2xl font-medium nav-link">Home</a>
+            <a href="index.html" class="text-2xl font-medium nav-link">Home</a>
             <a href="/about.html" class="text-2xl font-medium nav-link">About</a>
             <a href="/experience.html" class="text-2xl font-medium nav-link">Experience</a>
             <a href="/contact.html" class="text-2xl font-medium nav-link text-accent" style="color: var(--accent);">Contact</a>
@@ -276,7 +343,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="min-h-[40vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <section class="hero-section min-h-[40vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--primary);">Let's Connect</h1>
             <div class="section-divider"></div>
@@ -289,127 +356,13 @@
         <div class="max-w-md mx-auto animate-on-scroll">
             <!-- Primary Contact Buttons -->
             <div class="space-y-4">
-                <!-- Direct Message -->
                 <!-- Direct Message Button -->
-                <a id="directMessageBtn" class="contact-btn btn-hover-effect" style="background-color: teal; cursor: pointer;">
-                    <img src="comment.png" alt="Comment Icon" style="width: 1.25rem; height: 1.25rem; margin-right: 1rem;">
+                <button id="directMessageBtn" class="contact-btn btn-hover-effect" style="background-color: teal; cursor: pointer;">
+                    <i class="fas fa-comment"></i>
                     <span>Direct Message</span>
                     <div class="loading-spinner"></div>
-                </a>
-
-                <!-- Direct Message Modal -->
-                <div id="directMessageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 opacity-0 pointer-events-none">
-                    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative transform scale-95 transition-transform duration-300"
-                         style="font-family: 'Montserrat', sans-serif;">
-                        <!-- Close Button -->
-                        <button id="closeDirectMessageModal" aria-label="Close" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-accent focus:outline-none">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <h2 class="text-2xl font-bold mb-6 text-center" style="color: var(--primary); font-family: 'Poppins', sans-serif;">Direct Message</h2>
-                        <form id="directMessageForm" class="space-y-5">
-                            <div>
-                                <label for="dmName" class="block mb-1 text-sm font-medium text-gray-700">Your Name</label>
-                                <input type="text" id="dmName" name="name" required
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" placeholder="Enter your name">
-                            </div>
-                            <div>
-                                <label for="dmEmail" class="block mb-1 text-sm font-medium text-gray-700">Your E-mail Address</label>
-                                <input type="email" id="dmEmail" name="email" required
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" placeholder="Enter your email">
-                            </div>
-                            <div>
-                                <label for="dmMessage" class="block mb-1 text-sm font-medium text-gray-700">Your Message</label>
-                                <textarea id="dmMessage" name="message" rows="4" required
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base resize-none" placeholder="Type your message"></textarea>
-                            </div>
-                            <button type="submit"
-                                class="w-full py-3 rounded-lg font-semibold text-green-700 bg-green-300 hover:bg-green-500 transition duration-200 btn-hover-effect flex items-center justify-center">
-                                <span>Send Message</span>
-                                <svg id="dmFormSpinner" class="ml-3 h-5 w-5 animate-spin hidden" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="white" d="M4 12a8 8 0 018-8v8z"></path>
-                                </svg>
-                            </button>
-                            <div id="dmFormSuccess" class="hidden text-green-600 text-center font-medium mt-2">Message sent successfully!</div>
-                            <div id="dmFormError" class="hidden text-red-600 text-center font-medium mt-2">Failed to send message. Please try again.</div>
-                        </form>
-                    </div>
-                </div>
-
-                <script>
-                    // Modal open/close logic
-                    const directMessageBtn = document.getElementById('directMessageBtn');
-                    const directMessageModal = document.getElementById('directMessageModal');
-                    const closeDirectMessageModal = document.getElementById('closeDirectMessageModal');
-                    const dmForm = document.getElementById('directMessageForm');
-                    const dmFormSpinner = document.getElementById('dmFormSpinner');
-                    const dmFormSuccess = document.getElementById('dmFormSuccess');
-                    const dmFormError = document.getElementById('dmFormError');
-
-                    function openDMModal() {
-                        directMessageModal.classList.remove('opacity-0', 'pointer-events-none');
-                        directMessageModal.classList.add('opacity-100');
-                        setTimeout(() => {
-                            directMessageModal.querySelector('input, textarea').focus();
-                            directMessageModal.querySelector('div').classList.add('scale-100');
-                        }, 10);
-                    }
-                    function closeDMModal() {
-                        directMessageModal.classList.remove('opacity-100');
-                        directMessageModal.classList.add('opacity-0', 'pointer-events-none');
-                        dmFormSuccess.classList.add('hidden');
-                        dmFormError.classList.add('hidden');
-                        dmForm.reset();
-                    }
-                    directMessageBtn.addEventListener('click', openDMModal);
-                    closeDirectMessageModal.addEventListener('click', closeDMModal);
-                    directMessageModal.addEventListener('click', (e) => {
-                        if (e.target === directMessageModal) closeDMModal();
-                    });
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'Escape' && directMessageModal.classList.contains('opacity-100')) closeDMModal();
-                    });
-
-                    // Animate modal in/out
-                    // No need to toggle display, just use opacity and pointer-events
-
-                    // Form submit (demo, no backend)
-                    dmForm.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        dmFormSpinner.classList.remove('hidden');
-                        dmFormSuccess.classList.add('hidden');
-                        dmFormError.classList.add('hidden');
-                        // Simulate async send
-                        setTimeout(() => {
-                            dmFormSpinner.classList.add('hidden');
-                            dmFormSuccess.classList.remove('hidden');
-                            setTimeout(closeDMModal, 1500);
-                        }, 1200);
-                    });
-                </script>
-                <style>
-                    #directMessageModal {
-                        opacity: 0;
-                        pointer-events: none;
-                        transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
-                    }
-                    #directMessageModal.opacity-100 {
-                        opacity: 1;
-                        pointer-events: auto;
-                    }
-                    #directMessageModal > div {
-                        transform: scale(0.95);
-                        transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-                    }
-                    #directMessageModal.opacity-100 > div {
-                        transform: scale(1);
-                    }
-                    @media (max-width: 640px) {
-                        #directMessageModal > div {
-                            padding: 1.5rem;
-                        }
-                    }
-                </style>
+                </button>
+                
                 <!-- LinkedIn -->
                 <a href="https://www.linkedin.com/in/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #0A66C2;">
                     <i class="fab fa-linkedin-in"></i>
@@ -425,7 +378,7 @@
                 </a>
                 
                 <!-- WhatsApp -->
-                <a href="https://wa.me/+8801773351299" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #25D366;">
+                <a href="https://wa.me/8801773351299" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #25D366;">
                     <i class="fab fa-whatsapp"></i>
                     <span>WhatsApp</span>
                     <div class="loading-spinner"></div>
@@ -472,7 +425,7 @@
                     </a>
                     
                     <!-- Phone -->
-                    <a href="tel:+880 1773-351299" class="contact-btn btn-hover-effect" style="background-color: var(--accent);">
+                    <a href="tel:+8801773351299" class="contact-btn btn-hover-effect" style="background-color: var(--accent);">
                         <i class="fas fa-phone-alt"></i>
                         <span>Call</span>
                         <div class="loading-spinner"></div>
@@ -502,12 +455,12 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <a href="/" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+                    <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
                     <p class="mt-2 text-gray-500">© <span id="currentYear"></span> All rights reserved.</p>
                 </div>
                 
                 <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    <a href="/" class="nav-link font-medium">Home</a>
+                    <a href="index.html" class="nav-link font-medium">Home</a>
                     <a href="/about.html" class="nav-link font-medium">About</a>
                     <a href="/experience.html" class="nav-link font-medium">Experience</a>
                     <a href="/contact.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Contact</a>
@@ -519,6 +472,78 @@
             </div>
         </div>
     </footer>
+
+    <!-- Direct Message Modal -->
+    <div class="modal-overlay" id="directMessageModal">
+        <div class="modal-content" style="max-height: none; overflow-y: visible; width: 100%; min-width: 0;">
+            <button class="close-modal" id="closeDirectMessageModal">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-center" style="color: var(--primary); font-family: 'Poppins', sans-serif;">Send a Direct Message</h2>
+            <form id="directMessageForm" action="https://api.web3forms.com/submit" method="POST" class="w-full">
+                <input type="hidden" name="access_key" value="9c91b834-9019-4350-87dc-5c690d77f8e2">
+                <input type="hidden" name="redirect" value="">
+                
+                <div class="mb-4">
+                    <label for="dmName" class="block mb-2 text-sm font-medium text-gray-700">Your Name</label>
+                    <input type="text" id="dmName" name="name" required
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" 
+                        placeholder="Enter your name">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="dmEmail" class="block mb-2 text-sm font-medium text-gray-700">Your Email</label>
+                    <input type="email" id="dmEmail" name="email" required
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" 
+                        placeholder="Enter your email">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="dmMessage" class="block mb-2 text-sm font-medium text-gray-700">Your Message</label>
+                    <textarea id="dmMessage" name="message" rows="4" required
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base resize-none" 
+                        placeholder="Type your message"></textarea>
+                </div>
+                
+                <button type="submit"
+                    class="w-full py-3 px-4 rounded-lg font-semibold text-white bg-accent hover:bg-opacity-90 transition duration-200 btn-hover-effect flex items-center justify-center"
+                    style="background-color: var(--accent);">
+                    <span id="submitText">Send Message</span>
+                    <div id="dmFormSpinner" class="loading-spinner ml-2 hidden"></div>
+                </button>
+                
+                <div id="dmFormSuccess" class="hidden mt-4 w-full p-4 rounded-xl bg-gradient-to-r from-green-100 via-green-50 to-green-100 text-green-800 text-center flex items-center justify-center gap-3 shadow-lg border border-green-200 transition-all duration-300">
+                    <span class="flex items-center justify-center rounded-full bg-green-200/70 p-2 shadow-inner">
+                        <svg class="h-7 w-7 text-green-500" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" class="opacity-20"/>
+                            <path d="M7 13l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <animate attributeName="stroke-dasharray" from="0,24" to="24,0" dur="0.6s" fill="freeze"/>
+                                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="0.6s" fill="freeze"/>
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="text-base md:text-lg font-semibold">
+                        Message sent successfully!<br>
+                        <span class="block text-green-600 font-normal text-sm mt-1">Thank you for reaching out. I'll get back to you soon.</span>
+                    </span>
+                </div>
+
+                <div id="dmFormError" class="hidden mt-4 w-full p-4 rounded-xl bg-gradient-to-r from-green-100 via-green-50 to-green-100 text-green-800 text-center flex items-center justify-center gap-3 shadow-lg border border-green-200 transition-all duration-300">
+                    <span class="flex items-center justify-center rounded-full bg-green-200/70 p-2 shadow-inner">
+                        <svg class="h-7 w-7 text-green-500" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" class="opacity-20"/>
+                            <path d="M7 13l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <animate attributeName="stroke-dasharray" from="0,24" to="24,0" dur="0.6s" fill="freeze"/>
+                                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="0.6s" fill="freeze"/>
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="text-base md:text-lg font-semibold">
+                        Message sent successfully!<br>
+                        <span class="block text-green-600 font-normal text-sm mt-1">Thank you for reaching out. I'll get back to you soon.</span>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         // Custom Cursor
@@ -546,12 +571,14 @@
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
         });
 
         // Close mobile menu when clicking the exit cross button
         mobileMenuClose.addEventListener('click', () => {
             hamburger.classList.remove('active');
             mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
         });
         
         // Close mobile menu when clicking outside
@@ -559,6 +586,7 @@
             if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
                 hamburger.classList.remove('active');
                 mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
             }
         });
 
@@ -625,18 +653,99 @@
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Page transition effect
-        document.querySelectorAll('a').forEach(link => {
-            if (link.href.includes(window.location.origin) && !link.href.includes('#')) {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.body.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        window.location.href = link.href;
-                    }, 300);
-                });
+        // Direct Message Modal
+        const directMessageBtn = document.getElementById('directMessageBtn');
+        const directMessageModal = document.getElementById('directMessageModal');
+        const closeDirectMessageModal = document.getElementById('closeDirectMessageModal');
+        const dmForm = document.getElementById('directMessageForm');
+        const dmFormSpinner = document.getElementById('dmFormSpinner');
+        const submitText = document.getElementById('submitText');
+        const dmFormSuccess = document.getElementById('dmFormSuccess');
+        const dmFormError = document.getElementById('dmFormError');
+
+        function openDMModal() {
+            directMessageModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDMModal() {
+            directMessageModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        directMessageBtn.addEventListener('click', openDMModal);
+        closeDirectMessageModal.addEventListener('click', closeDMModal);
+        
+        // Close modal when clicking outside
+        directMessageModal.addEventListener('click', (e) => {
+            if (e.target === directMessageModal) closeDMModal();
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && directMessageModal.classList.contains('active')) {
+                closeDMModal();
             }
+        });
+
+        // Form submission
+        dmForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            dmFormSpinner.classList.remove('hidden');
+            submitText.textContent = 'Sending...';
+            dmFormSuccess.classList.add('hidden');
+            dmFormError.classList.add('hidden');
+            
+            try {
+                const formData = new FormData(dmForm);
+                const response = await fetch(dmForm.action, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    dmFormSuccess.classList.remove('hidden');
+                    dmForm.reset();
+                } else {
+                    throw new Error('Form submission sucessful');
+                }
+            } catch (error) {
+                // Show error message
+                dmFormError.classList.remove('hidden');
+            } finally {
+                // Reset form state
+                dmFormSpinner.classList.add('hidden');
+                submitText.textContent = 'Send Message';
+                
+                // Auto-close success message after 3 seconds
+                if (dmFormSuccess.classList.contains('hidden') === false) {
+                    setTimeout(() => {
+                        dmFormSuccess.classList.add('hidden');
+                        closeDMModal();
+                    }, 2000);
+                }
+                // Auto-close error message after 3 seconds
+                if (dmFormError.classList.contains('hidden') === false) {
+                    setTimeout(() => {
+                        dmFormError.classList.add('hidden');
+                        closeDMModal();
+                    }, 2000);
+                }
+            }
+        });
+
+        // Prevent page transition for demo purposes
+        document.querySelectorAll('a[href^="index.html"]').forEach(link => {
+            if (!link.href.includes(window.location.origin)) return;
+            
+            link.addEventListener('click', (e) => {
+                if (link.href === window.location.href) {
+                    e.preventDefault();
+                }
+            });
         });
     </script>
 </body>
