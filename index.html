@@ -65,7 +65,7 @@
 
         .typewriter {
             overflow: hidden;
-            border-right: 3px solid var(--accent);
+            border-right: 3px solid var(--callout);
             white-space: nowrap;
             margin: 0 auto;
             letter-spacing: 0.15em;
@@ -387,34 +387,19 @@
                 <h1 class="text-4xl md:text-6xl font-bold mb-4" style="color: var(--primary);">Sayed Ibn Masud</h1>
                 <h2 class="text-xl md:text-2xl font-semibold mb-6" style="color: var(--primary);">Business Operations
                     Manager @ SELISE</h2>
-                <p class="text-2xl md:text-3xl font-medium mb-8 typewriter inline-block align-middle"
-                    style="color: var(--accent); border-right-width: 2px; border-right-style: solid; border-right-color: var(--accent); padding-right: 0.2em;">
-                    Ki je likhi!</p>
+                <div class="text-2xl md:text-3xl font-medium mb-8" id="typewriter" style="color: var(--accent); height: 1.5em;"></div>
 
-<div class="flex flex-col sm:flex-row gap-4 hero-buttons">
-  <a href="experience.html"
-     class="btn-hover-effect px-8 py-3 rounded-full font-medium text-white text-center sm:w-auto w-full"
-     style="background-color: var(--accent);">View Experience</a>
-  
-  <a href="#"
-     id="download-cv"
-     class="btn-hover-effect px-8 py-3 rounded-full font-medium border-2 text-center sm:w-auto w-full"
-     style="border-color: var(--accent); color: var(--accent);"
-     data-file="assets/Sayed Ibn Masud CV.pdf">Download CV</a>
-</div>
-
-<script>
-  document.getElementById('download-cv').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default navigation
-    const filePath = this.getAttribute('data-file');
-    const link = document.createElement('a');
-    link.href = filePath;
-    link.download = 'Sayed_Ibn_Masud_CV.pdf'; // Optional: specify filename
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
-</script>
+                <div class="flex flex-col sm:flex-row gap-4 hero-buttons">
+                    <a href="experience.html"
+                        class="btn-hover-effect px-8 py-3 rounded-full font-medium text-white text-center sm:w-auto w-full"
+                        style="background-color: var(--accent);">View Experience</a>
+                    
+                    <a href="#"
+                        id="download-cv"
+                        class="btn-hover-effect px-8 py-3 rounded-full font-medium border-2 text-center sm:w-auto w-full"
+                        style="border-color: var(--accent); color: var(--accent);"
+                        data-file="assets/Sayed Ibn Masud CV.pdf">Download CV</a>
+                </div>
             </div>
 
             <div class="animate-on-scroll flex justify-center">
@@ -607,22 +592,52 @@
             }
         });
 
-        // Typewriter Effect
-        const typewriterElement = document.querySelector('.typewriter');
+        // Enhanced Typewriter Effect with Multiple Phrases
+        const typewriterElement = document.getElementById('typewriter');
         if (typewriterElement) {
-            const text = typewriterElement.textContent;
-            typewriterElement.textContent = '';
+            const phrases = [
+                "Product Manager",
+                "Business Analyst",
+                "PC Enthusiast",
+                "Gaming Enthusiast"
+            ];
+            let phraseIndex = 0;
+            let isDeleting = false;
+            let text = '';
+            let typingSpeed = 100;
+            let deletingSpeed = 50;
+            let pauseBetweenPhrases = 2000;
+            let cursorVisible = true;
 
-            let i = 0;
-            const typeWriter = () => {
-                if (i < text.length) {
-                    typewriterElement.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
+            // Blinking cursor animation
+
+            function typeWriter() {
+                const currentPhrase = phrases[phraseIndex % phrases.length];
+                
+                if (isDeleting) {
+                    // Deleting phase
+                    text = currentPhrase.substring(0, text.length - 1);
+                    typewriterElement.textContent = text;
+                    typingSpeed = deletingSpeed;
+                    
+                    if (text === '') {
+                        isDeleting = false;
+                        phraseIndex++;
+                        typingSpeed = 100;
+                    }
                 } else {
-                    typewriterElement.style.borderRight = 'none';
+                    // Typing phase
+                    text = currentPhrase.substring(0, text.length + 1);
+                    typewriterElement.textContent = text;
+                    
+                    if (text === currentPhrase) {
+                        isDeleting = true;
+                        typingSpeed = pauseBetweenPhrases;
+                    }
                 }
-            };
+                
+                setTimeout(typeWriter, typingSpeed);
+            }
 
             // Start typewriter when element is in view
             const observer = new IntersectionObserver((entries) => {
@@ -767,6 +782,18 @@
                     }, 500);
                 }
             });
+        });
+
+        // CV Download
+        document.getElementById('download-cv').addEventListener('click', function(e) {
+            e.preventDefault();
+            const filePath = this.getAttribute('data-file');
+            const link = document.createElement('a');
+            link.href = filePath;
+            link.download = 'Sayed_Ibn_Masud_CV.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     </script>
 </body>
