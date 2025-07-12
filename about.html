@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Sayed Ibn Masud | Product Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -18,20 +22,26 @@
             --text: #1C1E21;
             --callout: #F4A261;
         }
-        
+
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--text);
             background-color: white;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            padding-bottom: 72px; /* Space for bottom nav */
+            padding-bottom: 72px;
+            /* Space for bottom nav */
         }
-        
-        h1, h2, h3, h4, h5, h6 {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Poppins', sans-serif;
         }
-        
+
         .cursor-dot {
             width: 8px;
             height: 8px;
@@ -46,17 +56,17 @@
             transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
             mix-blend-mode: difference;
         }
-        
+
         .cursor-dot.active {
             width: 50px;
             height: 50px;
             opacity: 0.5;
         }
-        
+
         .nav-link {
             position: relative;
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -67,54 +77,54 @@
             background-color: var(--accent);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         .btn-hover-effect {
             transition: all 0.3s ease;
             transform: translateY(0);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-hover-effect:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         .btn-hover-effect:active {
             transform: translateY(1px);
         }
-        
+
         .sticky-nav {
             transition: all 0.3s ease;
         }
-        
+
         .sticky-nav.scrolled {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        
+
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .timeline-item {
             position: relative;
             padding-left: 2rem;
             margin-bottom: 2rem;
         }
-        
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -124,7 +134,7 @@
             height: 100%;
             background-color: var(--accent);
         }
-        
+
         .timeline-dot {
             position: absolute;
             left: -6px;
@@ -134,7 +144,7 @@
             border-radius: 50%;
             background-color: var(--accent);
         }
-        
+
         .skill-badge {
             display: inline-block;
             padding: 0.5rem 1rem;
@@ -143,26 +153,26 @@
             margin: 0.25rem;
             transition: all 0.3s ease;
         }
-        
+
         .skill-badge:hover {
             transform: translateY(-3px);
             background-color: var(--accent);
             color: white;
         }
-        
+
         .section-divider {
             width: 80px;
             height: 4px;
             background-color: var(--accent);
             margin: 2rem auto;
         }
-        
-        
+
+
         .page-transition.active {
             transform: scaleY(1);
             transform-origin: top;
         }
-        
+
         /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
@@ -175,18 +185,18 @@
             transition: all 0.3s ease;
             padding: 12px 0;
         }
-        
+
         .bottom-nav.scrolled {
             padding: 8px 0;
         }
-        
+
         .bottom-nav-container {
             display: flex;
             justify-content: space-around;
             max-width: 100%;
             margin: 0 auto;
         }
-        
+
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -199,126 +209,133 @@
             text-decoration: none;
             color: var(--primary);
         }
-        
+
         .nav-item.active {
             color: var(--accent);
         }
-        
+
         .nav-item i {
             font-size: 20px;
             margin-bottom: 4px;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item span {
             font-size: 10px;
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item:hover {
             color: var(--accent);
         }
-        
+
         .nav-item:active {
             transform: scale(0.95);
         }
-        
+
         .nav-item.active i {
             transform: translateY(-3px);
         }
-        
+
         .nav-item.shake {
             animation: shake 0.5s ease;
         }
-        
+
         @keyframes shake {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateX(0);
             }
-            20%, 60% {
+
+            20%,
+            60% {
                 transform: translateX(-3px);
             }
-            40%, 80% {
+
+            40%,
+            80% {
                 transform: translateX(3px);
             }
         }
-        
+
         /* Mobile text alignment */
         @media (max-width: 767px) {
             .hero-content {
                 text-align: center;
             }
-            
+
             .hero-buttons {
                 justify-content: center;
             }
-            
+
             .about-text {
                 text-align: center;
             }
-            
+
             .experience-item {
                 padding-left: 1.5rem;
             }
-            
+
             /* Mobile header */
             .mobile-header {
                 justify-content: center;
                 text-align: center;
             }
-            
+
             .desktop-nav {
                 display: none;
             }
-            
+
             /* Center all section content on mobile */
             .section-title,
             .section-content,
             .timeline-item {
                 text-align: center;
             }
-            
+
             .timeline-item::before {
                 display: none;
             }
-            
+
             .timeline-dot {
                 position: relative;
                 left: 0;
                 margin: 0 auto 1rem auto;
                 display: block;
             }
-            
+
             .skill-badge {
                 font-size: 0.9rem;
                 padding: 0.4rem 0.8rem;
             }
         }
-        
+
         @media (min-width: 768px) {
             .bottom-nav {
                 display: none;
             }
-            
+
             body {
                 padding-bottom: 0;
             }
-            
+
             .mobile-header {
                 display: none;
             }
-            
+
             .desktop-header {
                 display: flex;
             }
         }
     </style>
 </head>
+
 <body class="antialiased">
     <!-- Page Transition Overlay -->
     <div class="page-transition" id="pageTransition"></div>
-    
+
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
 
@@ -338,30 +355,39 @@
     <!-- Mobile Header (only shows on mobile) -->
     <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm mobile-header">
         <div class="flex justify-center">
-            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
+            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn
+                Masud</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="min-h-[50vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <section
+        class="min-h-[50vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-4xl md:text-5xl font-bold mb-6 hero-title" style="color: var(--primary);">About Sayed</h1>
             <div class="section-divider"></div>
-            <p class="text-xl md:text-2xl text-gray-600 hero-subtitle">Business Operations Manager with a product-driven mindset</p>
+            <p class="text-xl md:text-2xl text-gray-600 hero-subtitle">Business Operations Manager with a product-driven
+                mindset</p>
         </div>
     </section>
 
     <!-- Introduction Section -->
-    <section class="py-16 md:py-20 px-6 bg-white">
-        <div class="max-w-4xl mx-auto">
+    <section class="py-16 md:py-20 px-6 bg-white flex items-center justify-center">
+        <div class="max-w-4xl w-full text-center">
             <div class="animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 section-title" style="color: var(--primary);">Who I Am</h2>
-                <div class="bg-gray-50 rounded-xl p-6 md:p-8 shadow-sm section-content">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 section-title" style="color: var(--primary);">Who I Am
+                </h2>
+                <div class="bg-gray-50 rounded-xl p-6 md:p-8 shadow-sm section-content mx-auto max-w-2xl">
                     <p class="text-lg md:text-xl mb-6 leading-relaxed about-text">
-                        I'm a Business Operations Manager with a product-driven mindset. Over the past few years, I've worked at SELISE to align technical delivery with strategic business goals. My work focuses on improving processes, leading cross-functional teams, and designing operational frameworks that scale.
+                        I'm a Business Operations Manager with a product-driven mindset. Over the past few years, I've
+                        worked at SELISE to align technical delivery with strategic business goals. My work focuses on
+                        improving processes, leading cross-functional teams, and designing operational frameworks that
+                        scale.
                     </p>
                     <p class="text-lg md:text-xl leading-relaxed about-text">
-                        I thrive in environments where strategy meets execution — and I believe in solving problems by listening deeply, acting decisively, and thinking long-term. My approach combines analytical rigor with creative problem-solving to drive meaningful business outcomes.
+                        I thrive in environments where strategy meets execution — and I believe in solving problems by
+                        listening deeply, acting decisively, and thinking long-term. My approach combines analytical
+                        rigor with creative problem-solving to drive meaningful business outcomes.
                     </p>
                 </div>
             </div>
@@ -372,7 +398,8 @@
     <section class="py-16 md:py-20 px-6 bg-gray-50">
         <div class="max-w-4xl mx-auto">
             <div class="animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title" style="color: var(--primary);">Core Skills & Strengths</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title"
+                    style="color: var(--primary);">Core Skills & Strengths</h2>
                 <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm section-content">
                     <div class="flex flex-wrap justify-center">
                         <div class="skill-badge animate-on-scroll">Stakeholder Management</div>
@@ -395,28 +422,36 @@
     <section class="py-16 md:py-20 px-6 bg-white">
         <div class="max-w-4xl mx-auto">
             <div class="animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title" style="color: var(--primary);">Educational Journey</h2>
-                
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title"
+                    style="color: var(--primary);">Educational Journey</h2>
+
                 <div class="space-y-8">
                     <div class="timeline-item animate-on-scroll">
                         <div class="timeline-dot"></div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">North South University</h3>
-                        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Bachelor's Degree in Computer Science and Engineering</p>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">North South
+                            University</h3>
+                        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Bachelor's Degree in
+                            Computer Science and Engineering</p>
                         <p class="text-gray-600 mb-2">Sep 2014 – Apr 2019 | GPA: 3.53 (Cum Laude)</p>
-                        <p class="text-gray-600">Specialized in software engineering and business applications of technology.</p>
+                        <p class="text-gray-600">Specialized in software engineering and business applications of
+                            technology.</p>
                     </div>
-                    
+
                     <div class="timeline-item animate-on-scroll">
                         <div class="timeline-dot"></div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Govt. Azizul Haque College, Bogura</h3>
-                        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Higher Secondary School Certificate (Science)</p>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Govt. Azizul Haque
+                            College, Bogura</h3>
+                        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Higher Secondary School
+                            Certificate (Science)</p>
                         <p class="text-gray-600">2011 – 2013</p>
                     </div>
-                    
+
                     <div class="timeline-item animate-on-scroll">
                         <div class="timeline-dot"></div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Bogura Cantonment Public School & College</h3>
-                        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Secondary School Certificate (Science)</p>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Bogura Cantonment
+                            Public School & College</h3>
+                        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Secondary School Certificate
+                            (Science)</p>
                         <p class="text-gray-600">2009 – 2011</p>
                     </div>
                 </div>
@@ -427,10 +462,14 @@
     <!-- CTA Section -->
     <section class="py-16 md:py-20 px-6 bg-gray-50">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title" style="color: var(--primary);">Want to collaborate or learn more?</h2>
-            <p class="text-xl mb-8 text-gray-600">I'm always open to discussing new opportunities and professional connections.</p>
-            
-            <a href="contact.html" class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium text-white transition-all duration-300" style="background-color: var(--accent);">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title" style="color: var(--primary);">Want to
+                collaborate or learn more?</h2>
+            <p class="text-xl mb-8 text-gray-600">I'm always open to discussing new opportunities and professional
+                connections.</p>
+
+            <a href="contact.html"
+                class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium text-white transition-all duration-300"
+                style="background-color: var(--accent);">
                 Let's Connect →
             </a>
         </div>
@@ -444,17 +483,20 @@
                     <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
                     <p class="mt-2 text-gray-500">© <span id="currentYear"></span> All rights reserved.</p>
                 </div>
-                
+
                 <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
                     <a href="index.html" class="nav-link font-medium">Home</a>
-                    <a href="about.html" class="nav-link font-medium text-accent" style="color: var(--accent);">About</a>
+                    <a href="about.html" class="nav-link font-medium text-accent"
+                        style="color: var(--accent);">About</a>
                     <a href="experience.html" class="nav-link font-medium">Experience</a>
                     <a href="contact.html" class="nav-link font-medium">Contact</a>
                 </nav>
             </div>
-            
+
             <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500">
-                <p>Designed and developed by <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="font-medium" style="color: var(--accent);">Raiyan Bin Rashid</a></p>
+                <p>Designed and developed by <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank"
+                        rel="noopener noreferrer" class="font-medium" style="color: var(--accent);">Raiyan Bin
+                        Rashid</a></p>
             </div>
         </div>
     </footer>
@@ -484,17 +526,17 @@
     <script>
         // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
-        
+
         window.addEventListener('mousemove', (e) => {
             cursorDot.style.left = `${e.clientX}px`;
             cursorDot.style.top = `${e.clientY}px`;
         });
-        
+
         document.querySelectorAll('a, button, .skill-badge').forEach(element => {
             element.addEventListener('mouseenter', () => {
                 cursorDot.classList.add('active');
             });
-            
+
             element.addEventListener('mouseleave', () => {
                 cursorDot.classList.remove('active');
             });
@@ -504,7 +546,7 @@
         const desktopHeader = document.querySelector('.desktop-header');
         const mobileHeader = document.querySelector('.mobile-header');
         const bottomNav = document.getElementById('bottomNav');
-        
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
                 if (desktopHeader) desktopHeader.classList.add('scrolled');
@@ -519,7 +561,7 @@
 
         // Animate on Scroll
         const animateElements = document.querySelectorAll('.animate-on-scroll');
-        
+
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -527,7 +569,7 @@
                 }
             });
         }, { threshold: 0.1 });
-        
+
         animateElements.forEach(element => {
             scrollObserver.observe(element);
         });
@@ -537,15 +579,15 @@
 
         // Page transition effect
         const pageTransition = document.getElementById('pageTransition');
-        
+
         document.querySelectorAll('a').forEach(link => {
             if (link.href.includes(window.location.origin) && !link.href.includes('#') && link.href !== window.location.href) {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
+
                     // Start page transition
                     pageTransition.classList.add('active');
-                    
+
                     // Navigate after transition completes
                     setTimeout(() => {
                         window.location.href = link.href;
@@ -553,7 +595,7 @@
                 });
             }
         });
-        
+
         // Remove transition class when page loads
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -563,11 +605,11 @@
 
         // Bottom nav click animation
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', function (e) {
                 if (!this.classList.contains('active')) {
                     // Add shake animation to the clicked item
                     this.classList.add('shake');
-                    
+
                     // Remove shake class after animation completes
                     setTimeout(() => {
                         this.classList.remove('shake');
@@ -577,4 +619,5 @@
         });
     </script>
 </body>
+
 </html>
