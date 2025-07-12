@@ -25,6 +25,7 @@
             background-color: white;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            padding-bottom: 72px; /* Space for bottom nav */
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -84,57 +85,6 @@
         
         .btn-hover-effect:active {
             transform: translateY(1px);
-        }
-        
-        .hamburger {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 24px;
-            height: 24px;
-            position: relative;
-        }
-        
-        .hamburger-line {
-            width: 24px;
-            height: 2px;
-            background-color: var(--primary);
-            transition: all 0.3s ease;
-            position: absolute;
-        }
-        
-        .hamburger-line:nth-child(1) {
-            top: 6px;
-        }
-        
-        .hamburger-line:nth-child(2) {
-            top: 12px;
-        }
-        
-        .hamburger-line:nth-child(3) {
-            top: 18px;
-        }
-        
-        .hamburger.active .hamburger-line:nth-child(1) {
-            transform: rotate(45deg);
-            top: 12px;
-        }
-        
-        .hamburger.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active .hamburger-line:nth-child(3) {
-            transform: rotate(-45deg);
-            top: 12px;
-        }
-        
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu.open {
-            transform: translateX(0);
         }
         
         .sticky-nav {
@@ -284,10 +234,92 @@
             color: var(--primary);
         }
 
-        @media (max-width: 640px) {
-            .modal-content {
-                padding: 1.5rem;
-                width: 95%;
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 40;
+            transition: all 0.3s ease;
+            padding: 12px 0;
+        }
+        
+        .bottom-nav.scrolled {
+            padding: 8px 0;
+        }
+        
+        .bottom-nav-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item span {
+            font-size: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            color: var(--accent);
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-item.active i {
+            transform: translateY(-3px);
+        }
+        
+        .nav-item.shake {
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            20%, 60% {
+                transform: translateX(-3px);
+            }
+            40%, 80% {
+                transform: translateX(3px);
+            }
+        }
+
+        /* Mobile specific styles */
+        @media (max-width: 767px) {
+            .hero-section {
+                padding-top: 6rem;
+                padding-bottom: 4rem;
             }
             
             .contact-btn {
@@ -295,50 +327,78 @@
                 font-size: 0.9rem;
             }
             
-            .hero-section {
-                padding-top: 6rem;
-                padding-bottom: 4rem;
+            .modal-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+            
+            /* Center all text on mobile */
+            .section-title,
+            .section-content,
+            .timeline-item {
+                text-align: center;
+            }
+            
+            /* Adjust contact buttons for mobile */
+            .contact-btn {
+                justify-content: flex-start;
+                padding: 0.75rem 1rem;
+            }
+            
+            .contact-btn i {
+                margin-right: 0.75rem;
+                font-size: 1rem;
+            }
+            
+            /* Hide desktop nav on mobile */
+            .desktop-nav {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .bottom-nav {
+                display: none;
+            }
+            
+            body {
+                padding-bottom: 0;
+            }
+            
+            .mobile-header {
+                display: none;
+            }
+            
+            .desktop-header {
+                display: flex;
             }
         }
     </style>
 </head>
 <body class="antialiased">
+    <!-- Page Transition Overlay -->
+    <div class="page-transition" id="pageTransition"></div>
+    
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
 
-    <!-- Navigation -->
-    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm">
+    <!-- Desktop Navigation -->
+    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm desktop-header">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
-            
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8">
+            <!-- Navigation aligned to the right -->
+            <nav class="flex space-x-8">
                 <a href="index.html" class="nav-link font-medium">Home</a>
                 <a href="about.html" class="nav-link font-medium">About</a>
                 <a href="experience.html" class="nav-link font-medium">Experience</a>
                 <a href="contact.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Contact</a>
             </nav>
-            
-            <!-- Mobile Hamburger -->
-            <div class="md:hidden hamburger" id="hamburger">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-            </div>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div class="mobile-menu fixed inset-0 bg-white z-40 flex flex-col items-center justify-center md:hidden" id="mobileMenu">
-            <!-- Exit Cross Button -->
-            <button id="mobileMenuClose" aria-label="Close menu" class="absolute top-6 right-6 text-3xl text-gray-700 hover:text-accent focus:outline-none">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            <nav class="flex flex-col items-center space-y-8">
-            <a href="index.html" class="text-2xl font-medium nav-link">Home</a>
-            <a href="about.html" class="text-2xl font-medium nav-link">About</a>
-            <a href="experience.html" class="text-2xl font-medium nav-link">Experience</a>
-            <a href="contact.html" class="text-2xl font-medium nav-link text-accent" style="color: var(--accent);">Contact</a>
-            </nav>
+    </header>
+
+    <!-- Mobile Header (only shows on mobile) -->
+    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm mobile-header">
+        <div class="flex justify-center">
+            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
         </div>
     </header>
 
@@ -473,6 +533,28 @@
         </div>
     </footer>
 
+    <!-- Bottom Navigation (Mobile Only) -->
+    <div class="bottom-nav md:hidden" id="bottomNav">
+        <div class="bottom-nav-container">
+            <a href="index.html" class="nav-item" id="navHome">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="about.html" class="nav-item" id="navAbout">
+                <i class="fas fa-user"></i>
+                <span>About</span>
+            </a>
+            <a href="experience.html" class="nav-item" id="navExperience">
+                <i class="fas fa-briefcase"></i>
+                <span>Experience</span>
+            </a>
+            <a href="contact.html" class="nav-item active" id="navContact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
     <!-- Direct Message Modal -->
     <div class="modal-overlay" id="directMessageModal">
         <div class="modal-content" style="max-height: none; overflow-y: visible; width: 100%; min-width: 0;">
@@ -563,41 +645,20 @@
             });
         });
 
-        // Mobile Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
-        
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('open');
-            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-        });
-
-        // Close mobile menu when clicking the exit cross button
-        mobileMenuClose.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('open');
-            document.body.style.overflow = '';
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('open');
-                document.body.style.overflow = '';
-            }
-        });
-
         // Sticky Navigation
-        const header = document.querySelector('.sticky-nav');
+        const desktopHeader = document.querySelector('.desktop-header');
+        const mobileHeader = document.querySelector('.mobile-header');
+        const bottomNav = document.getElementById('bottomNav');
         
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
-                header.classList.add('scrolled');
+                if (desktopHeader) desktopHeader.classList.add('scrolled');
+                if (mobileHeader) mobileHeader.classList.add('scrolled');
+                if (bottomNav) bottomNav.classList.add('scrolled');
             } else {
-                header.classList.remove('scrolled');
+                if (desktopHeader) desktopHeader.classList.remove('scrolled');
+                if (mobileHeader) mobileHeader.classList.remove('scrolled');
+                if (bottomNav) bottomNav.classList.remove('scrolled');
             }
         });
 
@@ -737,13 +798,43 @@
             }
         });
 
-        // Prevent page transition for demo purposes
-        document.querySelectorAll('a[href^="index.html"]').forEach(link => {
-            if (!link.href.includes(window.location.origin)) return;
-            
-            link.addEventListener('click', (e) => {
-                if (link.href === window.location.href) {
+        // Page transition effect
+        const pageTransition = document.getElementById('pageTransition');
+        
+        document.querySelectorAll('a').forEach(link => {
+            if (link.href.includes(window.location.origin) && !link.href.includes('#') && link.href !== window.location.href) {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
+                    
+                    // Start page transition
+                    pageTransition.classList.add('active');
+                    
+                    // Navigate after transition completes
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 600);
+                });
+            }
+        });
+        
+        // Remove transition class when page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                pageTransition.classList.remove('active');
+            }, 100);
+        });
+
+        // Bottom nav click animation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!this.classList.contains('active')) {
+                    // Add shake animation to the clicked item
+                    this.classList.add('shake');
+                    
+                    // Remove shake class after animation completes
+                    setTimeout(() => {
+                        this.classList.remove('shake');
+                    }, 500);
                 }
             });
         });

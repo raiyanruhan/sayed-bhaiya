@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -25,6 +26,7 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
             transition: opacity 0.3s ease;
+            padding-bottom: 72px; /* Space for bottom nav */
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -84,57 +86,6 @@
         
         .btn-hover-effect:active {
             transform: translateY(1px);
-        }
-        
-        .hamburger {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 24px;
-            height: 24px;
-            position: relative;
-        }
-        
-        .hamburger-line {
-            width: 24px;
-            height: 2px;
-            background-color: var(--primary);
-            transition: all 0.3s ease;
-            position: absolute;
-        }
-        
-        .hamburger-line:nth-child(1) {
-            top: 6px;
-        }
-        
-        .hamburger-line:nth-child(2) {
-            top: 12px;
-        }
-        
-        .hamburger-line:nth-child(3) {
-            top: 18px;
-        }
-        
-        .hamburger.active .hamburger-line:nth-child(1) {
-            transform: rotate(45deg);
-            top: 12px;
-        }
-        
-        .hamburger.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active .hamburger-line:nth-child(3) {
-            transform: rotate(-45deg);
-            top: 12px;
-        }
-        
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu.open {
-            transform: translateX(0);
         }
         
         .sticky-nav {
@@ -250,30 +201,100 @@
             height: 100%;
             background-color: white;
             z-index: 99999;
-            transform: translateX(100%);
+            transform: translateY(100%);
             transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
         }
         
         .transition-overlay.active {
-            transform: translateX(0);
+            transform: translateY(0);
         }
         
-        /* Mobile menu close button */
-        .close-btn {
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 40;
             transition: all 0.3s ease;
+            padding: 8px 0;
         }
         
-        .close-btn:hover {
-            transform: rotate(90deg);
+        .bottom-nav.scrolled {
+            padding: 4px 0;
+        }
+        
+        .bottom-nav-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        
+        .nav-item.active {
             color: var(--accent);
         }
         
-        @media (max-width: 768px) {
-            .mobile-menu nav a {
-                font-size: 1.5rem;
-                margin-bottom: 1.5rem;
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item span {
+            font-size: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            color: var(--accent);
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-item.active i {
+            transform: translateY(-3px);
+        }
+        
+        .nav-item.shake {
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-3px); }
+            40%, 80% { transform: translateX(3px); }
+        }
+        
+        @media (min-width: 768px) {
+            .bottom-nav {
+                display: none;
             }
             
+            body {
+                padding-bottom: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
             .experience-card {
                 padding: 1.5rem;
             }
@@ -298,36 +319,14 @@
 
     <!-- Navigation -->
     <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
-            
+        <div class="max-w-7xl mx-auto flex justify-center items-center">
+
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link font-medium">Home</a>
                 <a href="about.html" class="nav-link font-medium">About</a>
                 <a href="experience.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Experience</a>
                 <a href="contact.html" class="nav-link font-medium">Contact</a>
-            </nav>
-            
-            <!-- Mobile Hamburger -->
-            <div class="md:hidden hamburger" id="hamburger">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div class="mobile-menu fixed inset-0 bg-white z-40 flex flex-col items-center justify-center md:hidden" id="mobileMenu">
-            <button id="mobileMenuClose" aria-label="Close menu" class="close-btn absolute top-6 right-6 text-3xl text-gray-700 hover:text-accent focus:outline-none">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            
-            <nav class="flex flex-col items-center space-y-6">
-                <a href="index.html" class="text-2xl font-medium nav-link">Home</a>
-                <a href="about.html" class="text-2xl font-medium nav-link">About</a>
-                <a href="experience.html" class="text-2xl font-medium nav-link text-accent" style="color: var(--accent);">Experience</a>
-                <a href="contact.html" class="text-2xl font-medium nav-link">Contact</a>
             </nav>
         </div>
     </header>
@@ -613,6 +612,28 @@
         </div>
     </footer>
 
+    <!-- Bottom Navigation (Mobile Only) -->
+    <div class="bottom-nav md:hidden" id="bottomNav">
+        <div class="bottom-nav-container">
+            <a href="index.html" class="nav-item" id="navHome">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="about.html" class="nav-item" id="navAbout">
+                <i class="fas fa-user"></i>
+                <span>About</span>
+            </a>
+            <a href="experience.html" class="nav-item active" id="navExperience">
+                <i class="fas fa-briefcase"></i>
+                <span>Experience</span>
+            </a>
+            <a href="contact.html" class="nav-item" id="navContact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
     <script>
         // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');        
@@ -631,40 +652,17 @@
             });
         });
 
-        // Mobile Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
-        
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('open');
-            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
-        });
-        
-        mobileMenuClose.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('open');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('open');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
         // Sticky Navigation
         const header = document.querySelector('.sticky-nav');
+        const bottomNav = document.getElementById('bottomNav');
         
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
                 header.classList.add('scrolled');
+                bottomNav.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+                bottomNav.classList.remove('scrolled');
             }
         });
 
@@ -729,6 +727,43 @@
             setTimeout(() => {
                 transitionOverlay.classList.remove('active');
             }, 100);
+        });
+
+        // Bottom navigation active state
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const navItems = {
+            'index.html': 'navHome',
+            'about.html': 'navAbout',
+            'experience.html': 'navExperience',
+            'contact.html': 'navContact'
+        };
+        
+        // Reset all active states
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Set active state for current page
+        if (navItems[currentPage]) {
+            const activeNavItem = document.getElementById(navItems[currentPage]);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+        }
+        
+        // Bottom nav click animation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!this.classList.contains('active')) {
+                    // Add shake animation to the clicked item
+                    this.classList.add('shake');
+                    
+                    // Remove shake class after animation completes
+                    setTimeout(() => {
+                        this.classList.remove('shake');
+                    }, 500);
+                }
+            });
         });
     </script>
 </body>
