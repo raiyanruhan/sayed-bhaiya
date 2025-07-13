@@ -387,15 +387,15 @@
                 <h1 class="text-4xl md:text-6xl font-bold mb-4" style="color: var(--primary);">Sayed Ibn Masud</h1>
                 <h2 class="text-xl md:text-2xl font-semibold mb-6" style="color: var(--primary);">Business Operations
                     Manager @ SELISE</h2>
-                <div class="text-2xl md:text-3xl font-medium mb-8" id="typewriter" style="color: var(--accent); height: 1.5em;"></div>
+                <div class="text-2xl md:text-3xl font-medium mb-8" id="typewriter"
+                    style="color: var(--accent); height: 1.5em;"></div>
 
                 <div class="flex flex-col sm:flex-row gap-4 hero-buttons">
                     <a href="experience.html"
                         class="btn-hover-effect px-8 py-3 rounded-full font-medium text-white text-center sm:w-auto w-full"
                         style="background-color: var(--accent);">View Experience</a>
-                    
-                    <a href="#"
-                        id="download-cv"
+
+                    <a href="#" id="download-cv"
                         class="btn-hover-effect px-8 py-3 rounded-full font-medium border-2 text-center sm:w-auto w-full"
                         style="border-color: var(--accent); color: var(--accent);"
                         data-file="assets/Sayed Ibn Masud CV.pdf">Download CV</a>
@@ -476,16 +476,19 @@
     <section class="py-20 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-3 gap-8">
+                <!-- Stat Box 1 -->
                 <div class="bg-gray-50 rounded-xl p-8 text-center shadow-sm animate-on-scroll">
                     <div class="text-5xl font-bold mb-2 counter" data-target="8" style="color: var(--accent);">0</div>
                     <h3 class="text-xl font-semibold" style="color: var(--primary);">Years Experience</h3>
                 </div>
 
+                <!-- Stat Box 2 -->
                 <div class="bg-gray-50 rounded-xl p-8 text-center shadow-sm animate-on-scroll">
                     <div class="text-5xl font-bold mb-2 counter" data-target="24" style="color: var(--accent);">0</div>
                     <h3 class="text-xl font-semibold" style="color: var(--primary);">Projects Completed</h3>
                 </div>
 
+                <!-- Stat Box 3 -->
                 <div class="bg-gray-50 rounded-xl p-8 text-center shadow-sm animate-on-scroll">
                     <div class="text-5xl font-bold mb-2 counter" data-target="15" style="color: var(--accent);">0</div>
                     <h3 class="text-xl font-semibold" style="color: var(--primary);">Teams Led</h3>
@@ -493,6 +496,64 @@
             </div>
         </div>
     </section>
+
+    <!-- Microanimation Styles -->
+    <style>
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <!-- Microanimation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('.counter');
+            const animatedCounters = new Set();
+
+            const animateCount = (el) => {
+                const target = +el.getAttribute('data-target');
+                let count = 0;
+                const increment = Math.ceil(target / 100);
+                const duration = 1000;
+                const stepTime = Math.floor(duration / (target / increment));
+
+                const update = () => {
+                    count += increment;
+                    if (count > target) count = target;
+                    el.innerText = count;
+                    if (count < target) {
+                        requestAnimationFrame(update);
+                    }
+                };
+                update();
+            };
+
+            const revealElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+
+                        const counterEl = entry.target.querySelector('.counter');
+                        if (counterEl && !animatedCounters.has(counterEl)) {
+                            animateCount(counterEl);
+                            animatedCounters.add(counterEl);
+                        }
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+
 
     <!-- CTA Section -->
     <section class="py-20 px-6 bg-gray-50">
@@ -623,13 +684,13 @@
 
             function typeWriter() {
                 const currentPhrase = phrases[phraseIndex % phrases.length];
-                
+
                 if (isDeleting) {
                     // Deleting phase
                     text = currentPhrase.substring(0, text.length - 1);
                     typewriterElement.textContent = text;
                     typingSpeed = deletingSpeed;
-                    
+
                     if (text === '') {
                         isDeleting = false;
                         phraseIndex++;
@@ -639,13 +700,13 @@
                     // Typing phase
                     text = currentPhrase.substring(0, text.length + 1);
                     typewriterElement.textContent = text;
-                    
+
                     if (text === currentPhrase) {
                         isDeleting = true;
                         typingSpeed = pauseBetweenPhrases;
                     }
                 }
-                
+
                 setTimeout(typeWriter, typingSpeed);
             }
 
@@ -795,7 +856,7 @@
         });
 
         // CV Download
-        document.getElementById('download-cv').addEventListener('click', function(e) {
+        document.getElementById('download-cv').addEventListener('click', function (e) {
             e.preventDefault();
             const filePath = this.getAttribute('data-file');
             const link = document.createElement('a');
