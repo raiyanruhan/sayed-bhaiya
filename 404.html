@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Sayed Ibn Masud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root {
+            --primary: #3A415A;
+            --accent: #4BC6B9;
+            --secondary: #F0F2F5;
+            --text: #1C1E21;
+            --callout: #F4A261;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .btn-hover {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(75, 198, 185, 0.3);
+        }
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(75, 198, 185, 0.4);
+        }
+        .btn-hover:active {
+            transform: translateY(1px);
+        }
+        
+        /* Navigation styles to match main site */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .sticky-nav {
+            transition: all 0.3s ease;
+        }
+        .sticky-nav.scrolled {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 40;
+            transition: all 0.3s ease;
+            padding: 12px 0;
+        }
+        .bottom-nav.scrolled {
+            padding: 8px 0;
+        }
+        .bottom-nav-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        .nav-item.active {
+            color: var(--accent);
+        }
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-item span {
+            font-size: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover {
+            color: var(--accent);
+        }
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        .nav-item.active i {
+            transform: translateY(-3px);
+        }
+        .nav-item.shake {
+            animation: shake 0.5s ease;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-3px); }
+            40%, 80% { transform: translateX(3px); }
+        }
+        
+        @media (min-width: 768px) {
+            .bottom-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-white min-h-screen font-sans" style="padding-bottom: 72px;">
+<!-- Desktop Navigation -->
+<header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm hidden md:block">
+    <div class="max-w-7xl mx-auto flex justify-center">
+        <nav class="flex space-x-8">
+            <a href="/" class="nav-link font-medium">Home</a>
+            <a href="/about" class="nav-link font-medium">About</a>
+            <a href="/experience" class="nav-link font-medium">Experience</a>
+            <a href="/contact" class="nav-link font-medium">Contact</a>
+        </nav>
+    </div>
+</header>
+
+    <!-- Mobile Header -->
+    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm md:hidden">
+        <div class="flex justify-center">
+            <a href="/" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center p-6 pt-24 md:pt-20">
+        <div class="max-w-2xl w-full text-center">
+            <!-- Animated illustration -->
+<div class="floating mb-8 mx-auto w-64 h-64" style="animation: pulse 3s infinite ease-in-out;">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <!-- Main circles with red and orange colors -->
+        <circle cx="100" cy="100" r="80" fill="#FF0000" opacity="0.1"/>
+        <circle cx="100" cy="100" r="60" fill="#FFA500" opacity="0.2"/>
+        <circle cx="100" cy="100" r="40" fill="#FF4500" opacity="0.3"/>
+        
+        <!-- Error icon shape in red -->
+        <path fill="#FF0000" d="M70 100a30 30 0 1 1 60 0 30 30 0 0 1-60 0zm30-50a50 50 0 1 0 0 100 50 50 0 0 0 0-100z"/>
+        <!-- Warning exclamation mark in orange -->
+        <path fill="#FFA500" d="M85 70v40h30V70h-30zm0 60v10h30V130h-30z"/>
+    </svg>
+</div>
+
+<style>
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+</style>
+
+            <!-- Error message -->
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-800 mb-4 animate__animated animate__fadeIn">404</h1>
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-700 mb-6 animate__animated animate__fadeIn animate__delay-1s">
+                Oops! Wrong Gateway
+            </h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto animate__animated animate__fadeIn animate__delay-2s">
+                The page you're looking for doesn't exist or may have been moved. Let's get you back on track.
+            </p>
+
+            <!-- Action button -->
+            <div class="animate__animated animate__fadeIn animate__delay-3s">
+                <a href="/" class="btn-hover inline-block bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-8 rounded-full transition-all duration-300">
+                    Return to Homepage
+                </a>
+            </div>
+
+            <!-- Additional helpful links -->
+            <div class="mt-12 pt-6 border-t border-gray-200 animate__animated animate__fadeIn animate__delay-4s">
+                <p class="text-gray-500 mb-4">Or try these pages:</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="/about" class="text-teal-500 hover:text-teal-600 transition-colors">About</a>
+                    <a href="/experience" class="text-teal-500 hover:text-teal-600 transition-colors">Experience</a>
+                    <a href="/contact" class="text-teal-500 hover:text-teal-600 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<footer class="bg-white py-12 px-6 text-gray-600">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Top: Name + Navigation -->
+<div class="flex flex-col md:flex-row items-center text-center w-full">
+    <div class="mb-6 md:mb-0 w-full">
+        <a href="index.html" class="text-2xl font-bold text-primary">Sayed Ibn Masud</a>
+        <p class="mt-2">© <span id="currentYear"></span> All rights reserved.</p>
+    </div>
+</div>
+
+        <!-- Bottom: Credits -->
+        <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm">
+            <p class="mx-auto">
+                Designed and developed by
+                <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer"
+                    class="text-accent font-medium hover:underline transition">
+                    Raiyan Bin Rashid
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <div class="bottom-nav md:hidden" id="bottomNav">
+        <div class="bottom-nav-container">
+            <a href="/" class="nav-item" id="navHome">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="/about" class="nav-item" id="navAbout">
+                <i class="fas fa-user"></i>
+                <span>About</span>
+            </a>
+            <a href="/experience" class="nav-item" id="navExperience">
+                <i class="fas fa-briefcase"></i>
+                <span>Experience</span>
+            </a>
+            <a href="/contact" class="nav-item" id="navContact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Add micro-interaction to button
+        document.querySelector('.btn-hover').addEventListener('mousedown', function() {
+            this.classList.add('transform', 'scale-95');
+        });
+        document.querySelector('.btn-hover').addEventListener('mouseup', function() {
+            this.classList.remove('transform', 'scale-95');
+        });
+
+        // Sticky Navigation
+        const desktopHeader = document.querySelector('.sticky-nav');
+        const mobileHeader = document.querySelector('.mobile-header');
+        const bottomNav = document.getElementById('bottomNav');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                if (desktopHeader) desktopHeader.classList.add('scrolled');
+                if (mobileHeader) mobileHeader.classList.add('scrolled');
+                if (bottomNav) bottomNav.classList.add('scrolled');
+            } else {
+                if (desktopHeader) desktopHeader.classList.remove('scrolled');
+                if (mobileHeader) mobileHeader.classList.remove('scrolled');
+                if (bottomNav) bottomNav.classList.remove('scrolled');
+            }
+        });
+
+        // Bottom nav active state
+        const currentPage = window.location.pathname;
+        const navItems = {
+            '/': 'navHome',
+            '/about': 'navAbout',
+            '/experience': 'navExperience',
+            '/contact': 'navContact'
+        };
+
+        // Reset all active states
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Set active state for current page
+        if (navItems[currentPage]) {
+            const activeNavItem = document.getElementById(navItems[currentPage]);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+        }
+
+        // Bottom nav click animation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function (e) {
+                if (!this.classList.contains('active')) {
+                    // Add shake animation to the clicked item
+                    this.classList.add('shake');
+
+                    // Remove shake class after animation completes
+                    setTimeout(() => {
+                        this.classList.remove('shake');
+                    }, 500);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

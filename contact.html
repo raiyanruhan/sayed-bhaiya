@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Sayed Ibn Masud | Product Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #3A415A;
-            --accent: #4BC6B9;
-            --secondary: #F0F2F5;
-            --text: #1C1E21;
-            --callout: #F4A261;
+            --primary: #1E2A38;
+            --accent: #67a8bd;
+            --secondary: #F5F5F7;
+            --text: #222222;
+            --callout: #FF9552;
         }
-        
+
+
+
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--text);
             background-color: white;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            padding-bottom: 72px; /* Space for bottom nav */
+            padding-bottom: 72px;
+            /* Space for bottom nav */
         }
-        
-        h1, h2, h3, h4, h5, h6 {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Poppins', sans-serif;
         }
-        
+
         .cursor-dot {
             width: 8px;
             height: 8px;
@@ -46,17 +58,17 @@
             transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
             mix-blend-mode: difference;
         }
-        
+
         .cursor-dot.active {
             width: 50px;
             height: 50px;
             opacity: 0.5;
         }
-        
+
         .nav-link {
             position: relative;
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -67,55 +79,55 @@
             background-color: var(--accent);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         .btn-hover-effect {
             transition: all 0.3s ease;
             transform: translateY(0);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-hover-effect:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         .btn-hover-effect:active {
             transform: translateY(1px);
         }
-        
+
         .sticky-nav {
             transition: all 0.3s ease;
         }
-        
+
         .sticky-nav.scrolled {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        
+
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .section-divider {
             width: 80px;
             height: 4px;
             background-color: var(--accent);
             margin: 2rem auto;
         }
-        
+
         .contact-btn {
             display: flex;
             align-items: center;
@@ -129,12 +141,12 @@
             width: 100%;
             text-align: left;
         }
-        
+
         .contact-btn i {
             margin-right: 1rem;
             font-size: 1.25rem;
         }
-        
+
         .more-btn {
             display: flex;
             align-items: center;
@@ -149,26 +161,26 @@
             width: 120px;
             cursor: pointer;
         }
-        
+
         .more-btn i {
             margin-left: 0.5rem;
             transition: transform 0.3s ease;
         }
-        
+
         .more-btn.active i {
             transform: rotate(180deg);
         }
-        
+
         .hidden-contacts {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease;
         }
-        
+
         .hidden-contacts.visible {
             max-height: 1000px;
         }
-        
+
         .loading-spinner {
             display: none;
             width: 20px;
@@ -179,9 +191,11 @@
             animation: spin 1s ease-in-out infinite;
             margin-left: 10px;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Modal styles */
@@ -246,18 +260,18 @@
             transition: all 0.3s ease;
             padding: 12px 0;
         }
-        
+
         .bottom-nav.scrolled {
             padding: 8px 0;
         }
-        
+
         .bottom-nav-container {
             display: flex;
             justify-content: space-around;
             max-width: 100%;
             margin: 0 auto;
         }
-        
+
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -270,47 +284,53 @@
             text-decoration: none;
             color: var(--primary);
         }
-        
+
         .nav-item.active {
             color: var(--accent);
         }
-        
+
         .nav-item i {
             font-size: 20px;
             margin-bottom: 4px;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item span {
             font-size: 10px;
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item:hover {
             color: var(--accent);
         }
-        
+
         .nav-item:active {
             transform: scale(0.95);
         }
-        
+
         .nav-item.active i {
             transform: translateY(-3px);
         }
-        
+
         .nav-item.shake {
             animation: shake 0.5s ease;
         }
-        
+
         @keyframes shake {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateX(0);
             }
-            20%, 60% {
+
+            20%,
+            60% {
                 transform: translateX(-3px);
             }
-            40%, 80% {
+
+            40%,
+            80% {
                 transform: translateX(3px);
             }
         }
@@ -321,59 +341,59 @@
                 padding-top: 6rem;
                 padding-bottom: 4rem;
             }
-            
+
             .contact-btn {
                 padding: 0.75rem 1.5rem;
                 font-size: 0.9rem;
             }
-            
+
             .modal-content {
                 padding: 1.5rem;
                 width: 95%;
             }
-            
+
             /* Center all text on mobile */
             .section-title,
             .section-content,
             .timeline-item {
                 text-align: center;
             }
-            
+
             .contact-btn i {
                 margin-right: 0.75rem;
                 font-size: 1rem;
             }
-            
+
             /* Hide desktop nav on mobile */
             .desktop-nav {
                 display: none;
             }
         }
-        
+
         @media (min-width: 768px) {
             .bottom-nav {
                 display: none;
             }
-            
+
             body {
                 padding-bottom: 0;
             }
-            
+
             .mobile-header {
                 display: none;
             }
-            
+
             .desktop-header {
                 display: flex;
             }
         }
     </style>
 </head>
+
 <body class="antialiased">
     <!-- Page Transition Overlay -->
-    <div class="
-    n" id="pageTransition"></div>
-    
+    <div class="page-transition" id="pageTransition"></div>
+
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
 
@@ -385,7 +405,8 @@
                 <a href="index.html" class="nav-link font-medium">Home</a>
                 <a href="about.html" class="nav-link font-medium">About</a>
                 <a href="experience.html" class="nav-link font-medium">Experience</a>
-                <a href="contact.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Contact</a>
+                <a href="contact.html" class="nav-link font-medium text-accent"
+                    style="color: var(--accent);">Contact</a>
             </nav>
         </div>
     </header>
@@ -393,16 +414,19 @@
     <!-- Mobile Header (only shows on mobile) -->
     <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm mobile-header">
         <div class="flex justify-center">
-            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn Masud</a>
+            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn
+                Masud</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-section min-h-[40vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <section
+        class="hero-section min-h-[40vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--primary);">Let's Connect</h1>
             <div class="section-divider"></div>
-            <p class="text-xl md:text-2xl text-gray-600">I'm always open to discussing new opportunities and collaborations</p>
+            <p class="text-xl md:text-2xl text-gray-600">I'm always open to discussing new opportunities and
+                collaborations</p>
         </div>
     </section>
 
@@ -412,34 +436,38 @@
             <!-- Primary Contact Buttons -->
             <div class="space-y-4">
                 <!-- Direct Message Button -->
-                <button id="directMessageBtn" class="contact-btn btn-hover-effect" style="background-color: teal; cursor: pointer;">
+                <button id="directMessageBtn" class="contact-btn btn-hover-effect"
+                    style="background-color: teal; cursor: pointer;">
                     <i class="fas fa-comment"></i>
                     <span>Direct Message</span>
                     <div class="loading-spinner"></div>
                 </button>
-                
+
                 <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/in/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #0A66C2;">
+                <a href="https://www.linkedin.com/in/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect"
+                    style="background-color: #0A66C2;">
                     <i class="fab fa-linkedin-in"></i>
                     <span>LinkedIn</span>
                     <div class="loading-spinner"></div>
                 </a>
-                
+
                 <!-- Email -->
-                <a href="mailto:sayedibnmasud@gmail.com" class="contact-btn btn-hover-effect" style="background-color: #EA4335;">
+                <a href="mailto:sayedibnmasud@gmail.com" class="contact-btn btn-hover-effect"
+                    style="background-color: #EA4335;">
                     <i class="fas fa-envelope"></i>
                     <span>Email</span>
                     <div class="loading-spinner"></div>
                 </a>
-                
+
                 <!-- WhatsApp -->
-                <a href="https://wa.me/8801773351299" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #25D366;">
+                <a href="https://wa.me/8801773351299" target="_blank" class="contact-btn btn-hover-effect"
+                    style="background-color: #25D366;">
                     <i class="fab fa-whatsapp"></i>
                     <span>WhatsApp</span>
                     <div class="loading-spinner"></div>
                 </a>
             </div>
-            
+
             <!-- More Button -->
             <div class="text-center">
                 <div class="more-btn btn-hover-effect" id="moreBtn">
@@ -447,40 +475,46 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
-            
+
             <!-- Hidden Contact Options -->
             <div class="hidden-contacts" id="hiddenContacts">
                 <div class="space-y-4">
                     <!-- Facebook -->
-                    <a href="https://www.facebook.com/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #1877F2;">
+                    <a href="https://www.facebook.com/sayedibnmasud" target="_blank"
+                        class="contact-btn btn-hover-effect" style="background-color: #1877F2;">
                         <i class="fab fa-facebook-f"></i>
                         <span>Facebook</span>
                         <div class="loading-spinner"></div>
                     </a>
-                    
+
                     <!-- GitHub -->
-                    <a href="https://github.com/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #181717;">
+                    <a href="https://github.com/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect"
+                        style="background-color: #181717;">
                         <i class="fab fa-github"></i>
                         <span>GitHub</span>
                         <div class="loading-spinner"></div>
                     </a>
-                    
+
                     <!-- Instagram -->
-                    <a href="https://www.instagram.com/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);">
+                    <a href="https://www.instagram.com/sayedibnmasud" target="_blank"
+                        class="contact-btn btn-hover-effect"
+                        style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);">
                         <i class="fab fa-instagram"></i>
                         <span>Instagram</span>
                         <div class="loading-spinner"></div>
                     </a>
-                    
+
                     <!-- Messenger -->
-                    <a href="https://m.me/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect" style="background-color: #006AFF;">
+                    <a href="https://m.me/sayedibnmasud" target="_blank" class="contact-btn btn-hover-effect"
+                        style="background-color: #006AFF;">
                         <i class="fab fa-facebook-messenger"></i>
                         <span>Messenger</span>
                         <div class="loading-spinner"></div>
                     </a>
-                    
+
                     <!-- Phone -->
-                    <a href="tel:+8801773351299" class="contact-btn btn-hover-effect" style="background-color: var(--accent);">
+                    <a href="tel:+8801773351299" class="contact-btn btn-hover-effect"
+                        style="background-color: var(--accent);">
                         <i class="fas fa-phone-alt"></i>
                         <span>Call</span>
                         <div class="loading-spinner"></div>
@@ -498,32 +532,44 @@
                 <h3 class="text-2xl font-bold mb-4" style="color: var(--primary);">Response Time</h3>
                 <p class="text-gray-600 mb-6">I'll try to respond within 24 hours. Let's build something together!</p>
                 <div class="w-full bg-gray-200 rounded-full h-2.5">
-                    <div class="bg-accent h-2.5 rounded-full" style="width: 90%; background-color: var(--accent);"></div>
+                    <div class="bg-accent h-2.5 rounded-full" style="width: 100.00%; background-color: var(--accent);">
+                    </div>
                 </div>
-                <p class="text-sm text-gray-500 mt-2">I will try to contact!</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 bg-white">
+    <footer class="bg-white py-12 px-6 text-gray-600">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
+
+            <!-- Top: Name + Navigation -->
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+
+                <!-- Left: Name & Year -->
                 <div class="mb-6 md:mb-0">
-                    <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
-                    <p class="mt-2 text-gray-500">© <span id="currentYear"></span> All rights reserved.</p>
+                    <a href="index.html" class="text-2xl font-bold text-primary">Sayed Ibn Masud</a>
+                    <p class="mt-2">© <span id="currentYear"></span> All rights reserved.</p>
                 </div>
-                
+
+                <!-- Right: Navigation -->
                 <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    <a href="index.html" class="nav-link font-medium">Home</a>
-                    <a href="about.html" class="nav-link font-medium">About</a>
-                    <a href="experience.html" class="nav-link font-medium">Experience</a>
-                    <a href="contact.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Contact</a>
+                    <a href="index.html" class="hover:text-primary transition font-medium">Home</a>
+                    <a href="about.html" class="hover:text-primary transition font-medium">About</a>
+                    <a href="experience.html" class="hover:text-primary transition font-medium">Experience</a>
+                    <a href="contact.html" class="text-accent font-medium hover:underline transition">Contact</a>
                 </nav>
             </div>
-            
-            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500">
-                <p>Designed and developed by <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="font-medium" style="color: var(--accent);">Raiyan Bin Rashid</a></p>
+
+            <!-- Bottom: Credits -->
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm">
+                <p>
+                    Designed and developed by
+                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer"
+                        class="text-accent font-medium hover:underline transition">
+                        Raiyan Bin Rashid
+                    </a>
+                </p>
             </div>
         </div>
     </footer>
@@ -554,68 +600,77 @@
     <div class="modal-overlay" id="directMessageModal">
         <div class="modal-content" style="max-height: none; overflow-y: visible; width: 100%; min-width: 0;">
             <button class="close-modal" id="closeDirectMessageModal">&times;</button>
-            <h2 class="text-2xl font-bold mb-6 text-center" style="color: var(--primary); font-family: 'Poppins', sans-serif;">Send a Direct Message</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center"
+                style="color: var(--primary); font-family: 'Poppins', sans-serif;">Send a Direct Message</h2>
             <form id="directMessageForm" action="https://api.web3forms.com/submit" method="POST" class="w-full">
                 <input type="hidden" name="access_key" value="9c91b834-9019-4350-87dc-5c690d77f8e2">
                 <input type="hidden" name="redirect" value="">
-                
+
                 <div class="mb-4">
                     <label for="dmName" class="block mb-2 text-sm font-medium text-gray-700">Your Name</label>
                     <input type="text" id="dmName" name="name" required
-                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base"
                         placeholder="Enter your name">
                 </div>
-                
+
                 <div class="mb-4">
                     <label for="dmEmail" class="block mb-2 text-sm font-medium text-gray-700">Your Email</label>
                     <input type="email" id="dmEmail" name="email" required
-                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base"
                         placeholder="Enter your email">
                 </div>
-                
+
                 <div class="mb-6">
                     <label for="dmMessage" class="block mb-2 text-sm font-medium text-gray-700">Your Message</label>
                     <textarea id="dmMessage" name="message" rows="4" required
-                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base resize-none" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition duration-200 bg-gray-50 text-base resize-none"
                         placeholder="Type your message"></textarea>
                 </div>
-                
+
                 <button type="submit"
                     class="w-full py-3 px-4 rounded-lg font-semibold text-white bg-accent hover:bg-opacity-90 transition duration-200 btn-hover-effect flex items-center justify-center"
-                    style="background-color: var(--accent);">
+                    style="background-color: #3498db;"> <!-- Changed color here -->
                     <span id="submitText">Send Message</span>
                     <div id="dmFormSpinner" class="loading-spinner ml-2 hidden"></div>
                 </button>
-                
-                <div id="dmFormSuccess" class="hidden mt-4 w-full p-4 rounded-xl bg-gradient-to-r from-green-100 via-green-50 to-green-100 text-green-800 text-center flex items-center justify-center gap-3 shadow-lg border border-green-200 transition-all duration-300">
+
+                <div id="dmFormSuccess"
+                    class="hidden mt-4 w-full p-4 rounded-xl bg-gradient-to-r from-green-100 via-green-50 to-green-100 text-green-800 text-center flex items-center justify-center gap-3 shadow-lg border border-green-200 transition-all duration-300">
                     <span class="flex items-center justify-center rounded-full bg-green-200/70 p-2 shadow-inner">
                         <svg class="h-7 w-7 text-green-500" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" class="opacity-20"/>
-                            <path d="M7 13l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <animate attributeName="stroke-dasharray" from="0,24" to="24,0" dur="0.6s" fill="freeze"/>
-                                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="0.6s" fill="freeze"/>
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" class="opacity-20" />
+                            <path d="M7 13l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <animate attributeName="stroke-dasharray" from="0,24" to="24,0" dur="0.6s"
+                                    fill="freeze" />
+                                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="0.6s" fill="freeze" />
                             </path>
                         </svg>
                     </span>
                     <span class="text-base md:text-lg font-semibold">
                         Message sent successfully!<br>
-                        <span class="block text-green-600 font-normal text-sm mt-1">Thank you for reaching out. I'll get back to you soon.</span>
+                        <span class="block text-green-600 font-normal text-sm mt-1">Thank you for reaching out. I'll get
+                            back to you soon.</span>
                     </span>
                 </div>
 
-                <div id="dmFormError" class="hidden mt-4 w-full p-4 rounded-xl bg-gradient-to-r from-green-100 via-green-50 to-green-100 text-green-800 text-center flex items-center justify-center gap-3 shadow-lg border border-green-200 transition-all duration-300">
+                <div id="dmFormError"
+                    class="hidden mt-4 w-full p-4 rounded-xl bg-gradient-to-r from-green-100 via-green-50 to-green-100 text-green-800 text-center flex items-center justify-center gap-3 shadow-lg border border-green-200 transition-all duration-300">
                     <span class="flex items-center justify-center rounded-full bg-green-200/70 p-2 shadow-inner">
                         <svg class="h-7 w-7 text-green-500" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" class="opacity-20"/>
-                            <path d="M7 13l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <animate attributeName="stroke-dasharray" from="0,24" to="24,0" dur="0.6s" fill="freeze"/>
-                                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="0.6s" fill="freeze"/>
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" class="opacity-20" />
+                            <path d="M7 13l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <animate attributeName="stroke-dasharray" from="0,24" to="24,0" dur="0.6s"
+                                    fill="freeze" />
+                                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="0.6s" fill="freeze" />
                             </path>
                         </svg>
                     </span>
                     <span class="text-base md:text-lg font-semibold">
                         Message sent successfully!<br>
-                        <span class="block text-green-600 font-normal text-sm mt-1">Thank you for reaching out. I'll get back to you soon.</span>
+                        <span class="block text-green-600 font-normal text-sm mt-1">Thank you for reaching out. I'll get
+                            back to you soon.</span>
                     </span>
                 </div>
             </form>
@@ -624,17 +679,17 @@
 
     <script>
         // Custom Cursor
-        const cursorDot = document.querySelector('.cursor-dot');        
+        const cursorDot = document.querySelector('.cursor-dot');
         window.addEventListener('mousemove', (e) => {
             cursorDot.style.left = `${e.clientX}px`;
             cursorDot.style.top = `${e.clientY}px`;
         });
-        
+
         document.querySelectorAll('a, button, .contact-btn').forEach(element => {
             element.addEventListener('mouseenter', () => {
                 cursorDot.classList.add('active');
             });
-            
+
             element.addEventListener('mouseleave', () => {
                 cursorDot.classList.remove('active');
             });
@@ -644,7 +699,7 @@
         const desktopHeader = document.querySelector('.desktop-header');
         const mobileHeader = document.querySelector('.mobile-header');
         const bottomNav = document.getElementById('bottomNav');
-        
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
                 if (desktopHeader) desktopHeader.classList.add('scrolled');
@@ -659,7 +714,7 @@
 
         // Animate on Scroll
         const animateElements = document.querySelectorAll('.animate-on-scroll');
-        
+
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -667,7 +722,7 @@
                 }
             });
         }, { threshold: 0.1 });
-        
+
         animateElements.forEach(element => {
             scrollObserver.observe(element);
         });
@@ -675,7 +730,7 @@
         // More Button Functionality
         const moreBtn = document.getElementById('moreBtn');
         const hiddenContacts = document.getElementById('hiddenContacts');
-        
+
         moreBtn.addEventListener('click', () => {
             moreBtn.classList.toggle('active');
             hiddenContacts.classList.toggle('visible');
@@ -683,20 +738,20 @@
 
         // Loading Spinner for Contact Buttons
         document.querySelectorAll('.contact-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
+            button.addEventListener('click', function (e) {
                 // Only show spinner for external links
-                if (this.getAttribute('href') && 
-                    (this.getAttribute('href').startsWith('http') || 
-                     this.getAttribute('href').startsWith('mailto') || 
-                     this.getAttribute('href').startsWith('tel'))) {
-                    
+                if (this.getAttribute('href') &&
+                    (this.getAttribute('href').startsWith('http') ||
+                        this.getAttribute('href').startsWith('mailto') ||
+                        this.getAttribute('href').startsWith('tel'))) {
+
                     const spinner = this.querySelector('.loading-spinner');
                     const text = this.querySelector('span');
-                    
+
                     // Show spinner and hide text
                     spinner.style.display = 'block';
                     text.style.visibility = 'hidden';
-                    
+
                     // Set timeout to handle cases where the link doesn't actually navigate away
                     setTimeout(() => {
                         spinner.style.display = 'none';
@@ -731,12 +786,12 @@
 
         directMessageBtn.addEventListener('click', openDMModal);
         closeDirectMessageModal.addEventListener('click', closeDMModal);
-        
+
         // Close modal when clicking outside
         directMessageModal.addEventListener('click', (e) => {
             if (e.target === directMessageModal) closeDMModal();
         });
-        
+
         // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && directMessageModal.classList.contains('active')) {
@@ -745,22 +800,22 @@
         });
 
         // Form submission
-        dmForm.addEventListener('submit', async function(e) {
+        dmForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             // Show loading state
             dmFormSpinner.classList.remove('hidden');
             submitText.textContent = 'Sending...';
             dmFormSuccess.classList.add('hidden');
             dmFormError.classList.add('hidden');
-            
+
             try {
                 const formData = new FormData(dmForm);
                 const response = await fetch(dmForm.action, {
                     method: 'POST',
                     body: formData
                 });
-                
+
                 if (response.ok) {
                     // Show success message
                     dmFormSuccess.classList.remove('hidden');
@@ -775,7 +830,7 @@
                 // Reset form state
                 dmFormSpinner.classList.add('hidden');
                 submitText.textContent = 'Send Message';
-                
+
                 // Auto-close success message after 3 seconds
                 if (dmFormSuccess.classList.contains('hidden') === false) {
                     setTimeout(() => {
@@ -795,15 +850,15 @@
 
         // Page transition effect
         const pageTransition = document.getElementById('pageTransition');
-        
+
         document.querySelectorAll('a').forEach(link => {
             if (link.href.includes(window.location.origin) && !link.href.includes('#') && link.href !== window.location.href) {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
+
                     // Start page transition
                     pageTransition.classList.add('active');
-                    
+
                     // Navigate after transition completes
                     setTimeout(() => {
                         window.location.href = link.href;
@@ -811,7 +866,7 @@
                 });
             }
         });
-        
+
         // Remove transition class when page loads
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -821,11 +876,11 @@
 
         // Bottom nav click animation
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', function (e) {
                 if (!this.classList.contains('active')) {
                     // Add shake animation to the clicked item
                     this.classList.add('shake');
-                    
+
                     // Remove shake class after animation completes
                     setTimeout(() => {
                         this.classList.remove('shake');
@@ -835,4 +890,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -12,11 +12,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --primary: #3A415A;
-            --accent: #4BC6B9;
-            --secondary: #F0F2F5;
-            --text: #1C1E21;
-            --callout: #F4A261;
+            --primary: #1E2A38;
+            --accent: #67a8bd;
+            --secondary: #F5F5F7;
+            --text: #222222;
+            --callout: #FF9552;
         }
         
         body {
@@ -624,24 +624,36 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 bg-white">
+    <footer class="bg-white py-12 px-6 text-gray-600">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
+
+            <!-- Top: Name + Navigation -->
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+
+                <!-- Left: Name & Year -->
                 <div class="mb-6 md:mb-0">
-                    <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
-                    <p class="mt-2 text-gray-500">© <span id="currentYear"></span> All rights reserved.</p>
+                    <a href="index.html" class="text-2xl font-bold text-primary">Sayed Ibn Masud</a>
+                    <p class="mt-2">© <span id="currentYear"></span> All rights reserved.</p>
                 </div>
-                
+
+                <!-- Right: Navigation -->
                 <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    <a href="index.html" class="nav-link font-medium">Home</a>
-                    <a href="about.html" class="nav-link font-medium">About</a>
-                    <a href="experience.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Experience</a>
-                    <a href="contact.html" class="nav-link font-medium">Contact</a>
+                    <a href="index.html" class="hover:text-primary transition font-medium">Home</a>
+                    <a href="about.html" class="hover:text-primary transition font-medium">About</a>
+                    <a href="experience.html" class="hover:text-primary transition font-medium">Experience</a>
+                    <a href="contact.html" class="text-accent font-medium hover:underline transition">Contact</a>
                 </nav>
             </div>
-            
-            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500">
-                <p>Designed and developed by <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="font-medium" style="color: var(--accent);">Raiyan Bin Rashid</a></p>
+
+            <!-- Bottom: Credits -->
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm">
+                <p>
+                    Designed and developed by
+                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer"
+                        class="text-accent font-medium hover:underline transition">
+                        Raiyan Bin Rashid
+                    </a>
+                </p>
             </div>
         </div>
     </footer>
