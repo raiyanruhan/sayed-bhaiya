@@ -53,14 +53,43 @@
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+            transition:
+                transform 0.1s ease,
+                width 0.2s ease,
+                height 0.2s ease,
+                opacity 0.2s ease;
             mix-blend-mode: difference;
         }
 
+        /* Hover effect (desktop) */
         .cursor-dot.active {
             width: 50px;
             height: 50px;
             opacity: 0.5;
+        }
+
+        /* Click effect (both mobile & desktop) */
+        .cursor-dot.click {
+            width: 80px;
+            height: 80px;
+            opacity: 0;
+            transition:
+                width 0.3s ease-out,
+                height 0.3s ease-out,
+                opacity 0.3s ease-out;
+        }
+
+        /* Hide cursor on mobile by default */
+        @media (max-width: 767px) {
+            .cursor-dot {
+                display: none;
+                opacity: 1;
+            }
+
+            /* Show cursor only when user interacts */
+            body.touch-active .cursor-dot {
+                display: block;
+            }
         }
 
         .typewriter {
@@ -320,10 +349,23 @@
                 padding-left: 1.5rem;
             }
 
-            /* Mobile header */
+            /* Mobile Header (only shows on mobile) */
             .mobile-header {
-                justify-content: center;
-                text-align: center;
+                transition: all 0.3s ease;
+                padding: 1rem 0;
+                /* Initial padding */
+            }
+
+            /* Scrolled state - smaller header */
+            .mobile-header.scrolled {
+                padding: 0.5rem 0;
+                /* Reduced padding */
+            }
+
+            .mobile-header.scrolled .text-2xl {
+                font-size: 1.25rem !important;
+                /* Shrink font size when scrolled */
+                transition: font-size 0.3s ease;
             }
 
             .desktop-nav {
@@ -630,21 +672,75 @@
     <script>
         // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+        // Track cursor position (desktop)
         window.addEventListener('mousemove', (e) => {
             cursorDot.style.left = `${e.clientX}px`;
             cursorDot.style.top = `${e.clientY}px`;
         });
 
-        document.querySelectorAll('a, button').forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursorDot.classList.add('active');
+        // Hover effects (desktop)
+        if (!isTouchDevice) {
+            document.querySelectorAll('a, button, .nav-item, .btn-hover-effect').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursorDot.classList.add('active');
+                });
+                element.addEventListener('mouseleave', () => {
+                    cursorDot.classList.remove('active');
+                });
             });
+        }
 
-            element.addEventListener('mouseleave', () => {
-                cursorDot.classList.remove('active');
-            });
-        });
+        // Click animation (both mobile & desktop)
+        function triggerClickEffect(e) {
+            // Set position (works for both mouse and touch)
+            const x = e.clientX || e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+            const y = e.clientY || e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+            if (x && y) {
+                cursorDot.style.left = `${x}px`;
+                cursorDot.style.top = `${y}px`;
+            }
+
+            // Trigger click animation
+            cursorDot.classList.remove('click'); // Reset (if already animating)
+            void cursorDot.offsetWidth; // Force reflow
+            cursorDot.classList.add('click');
+
+            // Reset after animation
+            setTimeout(() => {
+                cursorDot.classList.remove('click');
+            }, 300);
+        }
+
+        // Apply click effect
+        document.addEventListener('click', triggerClickEffect);
+        document.addEventListener('touchstart', triggerClickEffect);
+
+        // Mobile behavior: Show cursor only when interacting
+        if (isTouchDevice) {
+            document.body.classList.add('touch-active');
+
+            const hideCursor = () => {
+                cursorDot.style.display = 'none';
+            };
+
+            const showCursor = (e) => {
+                const x = e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+                const y = e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+                if (x && y) {
+                    cursorDot.style.display = 'block';
+                    cursorDot.style.left = `${x}px`;
+                    cursorDot.style.top = `${y}px`;
+                    setTimeout(hideCursor, 1000); // Hide after 1s of inactivity
+                }
+            };
+
+            document.addEventListener('touchstart', showCursor);
+            document.addEventListener('touchmove', showCursor);
+        }
 
         // Sticky Navigation
         const desktopHeader = document.querySelector('.desktop-header');
@@ -867,6 +963,19 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            // Mobile Header Shrink on Scroll
+            const mobileHeader = document.querySelector('.mobile-header');
+            const mobileHeaderText = document.querySelector('.mobile-header .text-2xl');
+
+            if (mobileHeader && window.innerWidth <= 767) { // Only for mobile
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        mobileHeader.classList.add('scrolled');
+                    } else {
+                        mobileHeader.classList.remove('scrolled');
+                    }
+                });
+            }
         });
     </script>
 </body>

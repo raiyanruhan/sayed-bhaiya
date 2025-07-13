@@ -53,14 +53,43 @@
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+            transition:
+                transform 0.1s ease,
+                width 0.2s ease,
+                height 0.2s ease,
+                opacity 0.2s ease;
             mix-blend-mode: difference;
         }
 
+        /* Hover effect (desktop) */
         .cursor-dot.active {
             width: 50px;
             height: 50px;
             opacity: 0.5;
+        }
+
+        /* Click effect (both mobile & desktop) */
+        .cursor-dot.click {
+            width: 80px;
+            height: 80px;
+            opacity: 0;
+            transition:
+                width 0.3s ease-out,
+                height 0.3s ease-out,
+                opacity 0.3s ease-out;
+        }
+
+        /* Hide cursor on mobile by default */
+        @media (max-width: 767px) {
+            .cursor-dot {
+                display: none;
+                opacity: 1;
+            }
+
+            /* Show cursor only when user interacts */
+            body.touch-active .cursor-dot {
+                display: block;
+            }
         }
 
         .nav-link {
@@ -278,10 +307,23 @@
                 padding-left: 1.5rem;
             }
 
-            /* Mobile header */
+            /* Mobile Header (only shows on mobile) */
             .mobile-header {
-                justify-content: center;
-                text-align: center;
+                transition: all 0.3s ease;
+                padding: 1rem 0;
+                /* Initial padding */
+            }
+
+            /* Scrolled state - smaller header */
+            .mobile-header.scrolled {
+                padding: 0.5rem 0;
+                /* Reduced padding */
+            }
+
+            .mobile-header.scrolled .text-2xl {
+                font-size: 1.25rem !important;
+                /* Shrink font size when scrolled */
+                transition: font-size 0.3s ease;
             }
 
             .desktop-nav {
@@ -419,39 +461,52 @@
     </section>
 
     <!-- Education Timeline -->
-<section class="py-16 md:py-20 px-6 bg-white">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-12 animate-on-scroll">
-      <h2 class="text-3xl md:text-4xl font-bold section-title" style="color: var(--primary);">Educational Journey</h2>
-    </div>
-    <div class="relative border-l-4 border-gray-300 pl-4 md:pl-8">
-      <!-- Timeline Item 1 -->
-      <div class="absolute left-[-8px] top-0 w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg"></div>
-      <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
-        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">North South University</h3>
-        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Bachelor's Degree in Computer Science and Engineering</p>
-        <p class="text-gray-600 mb-2">Sep 2014 – Apr 2019 |<br> GPA: 3.53 (Cum Laude)</p>
-        <p class="text-gray-600">Specialized in software engineering and business applications of technology.</p>
-      </div>
+    <section class="py-16 md:py-20 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl md:text-4xl font-bold section-title" style="color: var(--primary);">Educational
+                    Journey</h2>
+            </div>
+            <div class="relative border-l-4 border-gray-300 pl-4 md:pl-8">
+                <!-- Timeline Item 1 -->
+                <div class="absolute left-[-8px] top-0 w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg">
+                </div>
+                <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">North South University
+                    </h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Bachelor's Degree in Computer
+                        Science and Engineering</p>
+                    <p class="text-gray-600 mb-2">Sep 2014 – Apr 2019 |<br> GPA: 3.53 (Cum Laude)</p>
+                    <p class="text-gray-600">Specialized in software engineering and business applications of
+                        technology.</p>
+                </div>
 
-      <!-- Timeline Item 2 -->
-      <div class="absolute left-[-8px] top-[calc(10rem)] w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg"></div>
-      <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
-        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Govt. Azizul Haque College, Bogura</h3>
-        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Higher Secondary School Certificate (Science)</p>
-        <p class="text-gray-600">2011 – 2013</p>
-      </div>
+                <!-- Timeline Item 2 -->
+                <div
+                    class="absolute left-[-8px] top-[calc(10rem)] w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg">
+                </div>
+                <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Govt. Azizul Haque
+                        College, Bogura</h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Higher Secondary School
+                        Certificate (Science)</p>
+                    <p class="text-gray-600">2011 – 2013</p>
+                </div>
 
-      <!-- Timeline Item 3 -->
-      <div class="absolute left-[-8px] top-[calc(20rem)] w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg"></div>
-      <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
-        <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Bogura Cantonment Public School & College</h3>
-        <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Secondary School Certificate (Science)</p>
-        <p class="text-gray-600">2009 – 2011</p>
-      </div>
-    </div>
-  </div>
-</section>
+                <!-- Timeline Item 3 -->
+                <div
+                    class="absolute left-[-8px] top-[calc(20rem)] w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg">
+                </div>
+                <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Bogura Cantonment
+                        Public School & College</h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Secondary School Certificate
+                        (Science)</p>
+                    <p class="text-gray-600">2009 – 2011</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- CTA Section -->
     <section class="py-16 md:py-20 px-6 bg-gray-50">
@@ -529,21 +584,75 @@
     <script>
         // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+        // Track cursor position (desktop)
         window.addEventListener('mousemove', (e) => {
             cursorDot.style.left = `${e.clientX}px`;
             cursorDot.style.top = `${e.clientY}px`;
         });
 
-        document.querySelectorAll('a, button, .skill-badge').forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursorDot.classList.add('active');
+        // Hover effects (desktop)
+        if (!isTouchDevice) {
+            document.querySelectorAll('a, button, .nav-item, .btn-hover-effect').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursorDot.classList.add('active');
+                });
+                element.addEventListener('mouseleave', () => {
+                    cursorDot.classList.remove('active');
+                });
             });
+        }
 
-            element.addEventListener('mouseleave', () => {
-                cursorDot.classList.remove('active');
-            });
-        });
+        // Click animation (both mobile & desktop)
+        function triggerClickEffect(e) {
+            // Set position (works for both mouse and touch)
+            const x = e.clientX || e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+            const y = e.clientY || e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+            if (x && y) {
+                cursorDot.style.left = `${x}px`;
+                cursorDot.style.top = `${y}px`;
+            }
+
+            // Trigger click animation
+            cursorDot.classList.remove('click'); // Reset (if already animating)
+            void cursorDot.offsetWidth; // Force reflow
+            cursorDot.classList.add('click');
+
+            // Reset after animation
+            setTimeout(() => {
+                cursorDot.classList.remove('click');
+            }, 300);
+        }
+
+        // Apply click effect
+        document.addEventListener('click', triggerClickEffect);
+        document.addEventListener('touchstart', triggerClickEffect);
+
+        // Mobile behavior: Show cursor only when interacting
+        if (isTouchDevice) {
+            document.body.classList.add('touch-active');
+
+            const hideCursor = () => {
+                cursorDot.style.display = 'none';
+            };
+
+            const showCursor = (e) => {
+                const x = e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+                const y = e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+                if (x && y) {
+                    cursorDot.style.display = 'block';
+                    cursorDot.style.left = `${x}px`;
+                    cursorDot.style.top = `${y}px`;
+                    setTimeout(hideCursor, 1000); // Hide after 1s of inactivity
+                }
+            };
+
+            document.addEventListener('touchstart', showCursor);
+            document.addEventListener('touchmove', showCursor);
+        }
 
         // Sticky Navigation
         const desktopHeader = document.querySelector('.desktop-header');
@@ -599,6 +708,7 @@
             }
         });
 
+
         // Remove transition class when page loads
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -620,6 +730,7 @@
                 }
             });
         });
+
     </script>
 </body>
 
