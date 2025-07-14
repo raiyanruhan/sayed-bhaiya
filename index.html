@@ -709,24 +709,24 @@
         document.addEventListener('touchstart', triggerClickEffect);
 
         // Mobile behavior: Show cursor only when interacting
-        if (isTouchDevice) {
-            document.body.classList.add('touch-active');
-            const hideCursor = () => {
-                cursorDot.style.display = 'none';
-            };
-            const showCursor = (e) => {
-                const x = e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
-                const y = e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
-                if (x && y) {
-                    cursorDot.style.display = 'block';
-                    cursorDot.style.left = `${x}px`;
-                    cursorDot.style.top = `${y}px`;
-                    setTimeout(hideCursor, 1000); // Hide after 1s of inactivity
-                }
-            };
-            document.addEventListener('touchstart', showCursor);
-            document.addEventListener('touchmove', showCursor);
-        }
+        // if (isTouchDevice) {
+        //     document.body.classList.add('touch-active');
+        //     const hideCursor = () => {
+        //         cursorDot.style.display = 'none';
+        //     };
+        //     const showCursor = (e) => {
+        //         const x = e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+        //         const y = e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+        //         if (x && y) {
+        //             cursorDot.style.display = 'block';
+        //             cursorDot.style.left = `${x}px`;
+        //             cursorDot.style.top = `${y}px`;
+        //             setTimeout(hideCursor, 1000); // Hide after 1s of inactivity
+        //         }
+        //     };
+        //     document.addEventListener('touchstart', showCursor);
+        //     document.addEventListener('touchmove', showCursor);
+        // }
 
         // Sticky Navigation
         const desktopHeader = document.querySelector('.desktop-header');

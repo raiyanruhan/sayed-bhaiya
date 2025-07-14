@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +9,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         :root {
+            --primary: #E2E8F0;
+            --accent: #a75a2a;
+            --secondary: #1E293B;
+            --text: #E2E8F0;
+            --callout: #FF9552;
+            --bg: #0F172A;
+            --card-bg: #1E293B;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        .light-mode {
             --primary: #1E2A38;
             --accent: #a75a2a;
             --secondary: #F5F5F7;
             --text: #222222;
             --callout: #FF9552;
+            --bg: #FFFFFF;
+            --card-bg: #F5F5F7;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding-bottom: 72px;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         @keyframes float {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-15px);
             }
@@ -47,7 +67,6 @@
             transform: translateY(1px);
         }
 
-        /* Navigation styles to match main site */
         .nav-link {
             position: relative;
         }
@@ -69,26 +88,26 @@
 
         .sticky-nav {
             transition: all 0.3s ease;
+            background-color: var(--nav-bg);
         }
 
         .sticky-nav.scrolled {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: white;
+            background-color: var(--nav-bg);
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             z-index: 40;
             transition: all 0.3s ease;
             padding: 12px 0;
+            backdrop-filter: blur(10px);
         }
 
         .bottom-nav.scrolled {
@@ -107,16 +126,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
-            color: var(--primary);
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
         }
 
         .nav-item.active {
             color: var(--accent);
+            transform: translateY(-8px);
+        }
+
+        .nav-item.active::before {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .nav-item i {
@@ -133,6 +173,7 @@
 
         .nav-item:hover {
             color: var(--accent);
+            transform: translateY(-3px);
         }
 
         .nav-item:active {
@@ -140,29 +181,41 @@
         }
 
         .nav-item.active i {
-            transform: translateY(-3px);
+            animation: bounce 0.5s ease;
         }
 
-        .nav-item.shake {
-            animation: shake 0.5s ease;
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
         }
 
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
             }
-
-            20%,
-            60% {
-                transform: translateX(-3px);
+            50% {
+                transform: translateY(-8px);
             }
+        }
 
-            40%,
-            80% {
-                transform: translateX(3px);
-            }
+        .nav-item .nav-icon-bg {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-item.active .nav-icon-bg {
+            opacity: 0.1;
+            animation: float 3s ease-in-out infinite;
         }
 
         @media (min-width: 768px) {
@@ -170,26 +223,121 @@
                 display: none;
             }
         }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            20%, 60% {
+                transform: translateX(-3px);
+            }
+            40%, 80% {
+                transform: translateX(3px);
+            }
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 30px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            overflow: hidden;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--callout);
+            transition: all 0.3s ease;
+            left: 5px;
+        }
+
+        .light-mode .theme-toggle::before {
+            transform: translateX(30px);
+        }
+
+        .theme-toggle i {
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .theme-toggle .sun {
+            left: 7px;
+            opacity: 0;
+            color: #FFD700;
+        }
+
+        .theme-toggle .moon {
+            right: 7px;
+            opacity: 1;
+            color: #E2E8F0;
+        }
+
+        .light-mode .theme-toggle .sun {
+            opacity: 1;
+        }
+
+        .light-mode .theme-toggle .moon {
+            opacity: 0;
+        }
     </style>
 </head>
+<body class="bg-gradient-to-br from-bg to-secondary">
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
 
-<body class="bg-gradient-to-br from-gray-50 to-white min-h-screen font-sans" style="padding-bottom: 72px;">
     <!-- Desktop Navigation -->
-    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm hidden md:block">
-        <div class="max-w-7xl mx-auto flex justify-center">
-            <nav class="flex space-x-8">
-                <a href="/" class="nav-link font-medium">Home</a>
-                <a href="/about" class="nav-link font-medium">About</a>
-                <a href="/experience" class="nav-link font-medium">Experience</a>
-                <a href="/contact" class="nav-link font-medium">Contact</a>
-            </nav>
+    <header class="sticky-nav fixed w-full top-0 z-50 py-4 px-6 shadow-sm desktop-header">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- No text in the middle for desktop -->
+            </div>
+            <div class="flex items-center space-x-8">
+                <nav class="flex space-x-8">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About</a>
+                    <a href="experience.html" class="nav-link font-medium">Experience</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact</a>
+                </nav>
+                <div class="theme-toggle ml-4" id="themeToggle">
+                    <i class="fas fa-sun sun"></i>
+                    <i class="fas fa-moon moon"></i>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Mobile Header -->
-    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm md:hidden">
-        <div class="flex justify-center">
-            <a href="/" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+    <header class="sticky-nav fixed w-full top-0 z-50 py-4 px-6 shadow-sm mobile-header">
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+            <div class="theme-toggle" id="mobileThemeToggle">
+                <i class="fas fa-sun sun"></i>
+                <i class="fas fa-moon moon"></i>
+            </div>
         </div>
     </header>
 
@@ -203,145 +351,75 @@
                     <circle cx="100" cy="100" r="80" fill="#FF0000" opacity="0.1" />
                     <circle cx="100" cy="100" r="60" fill="#FFA500" opacity="0.2" />
                     <circle cx="100" cy="100" r="40" fill="#FF4500" opacity="0.3" />
-
                     <!-- Error icon shape in red -->
-                    <path fill="#FF0000"
-                        d="M70 100a30 30 0 1 1 60 0 30 30 0 0 1-60 0zm30-50a50 50 0 1 0 0 100 50 50 0 0 0 0-100z" />
+                    <path fill="#FF0000" d="M70 100a30 30 0 1 1 60 0 30 30 0 0 1-60 0zm30-50a50 50 0 1 0 0 100 50 50 0 0 0 0-100z" />
                     <!-- Warning exclamation mark in orange -->
                     <path fill="#FFA500" d="M85 70v40h30V70h-30zm0 60v10h30V130h-30z" />
                 </svg>
             </div>
 
-            <style>
-                @keyframes pulse {
-                    0% {
-                        transform: scale(1);
-                    }
-
-                    50% {
-                        transform: scale(1.05);
-                    }
-
-                    100% {
-                        transform: scale(1);
-                    }
-                }
-            </style>
-
-<!-- Error message -->
-<h1 class="text-5xl md:text-6xl font-bold text-gray-800 mb-4 animate__animated animate__fadeIn">404</h1>
-<h2
-    class="text-2xl md:text-3xl font-semibold text-gray-700 mb-6 animate__animated animate__fadeIn animate__delay-1s">
-    Oops! Wrong Gateway
-</h2>
-<p id="typewriter" class="text-lg text-gray-600 mb-8 max-w-md mx-auto animate__animated animate__fadeIn animate__delay-2s">
-  <!-- Text will be typed here -->
-</p>
-
-<script>
-  const message = "The page you're looking for doesn't exist or may have been moved. Let's get you back on track.";
-  const element = document.getElementById('typewriter');
-
-  let index = 0;
-
-  function typeWriter() {
-    if (index < message.length) {
-      element.innerHTML += message.charAt(index);
-      index++;
-      setTimeout(typeWriter, 50); // Adjust speed as needed
-    }
-  }
-
-  // Start after the fadeIn delay
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(typeWriter, 2000); // Match with animate__delay-2s
-  });
-</script>
-
-            <!-- Action button -->
-            <style>
-                @keyframes shake {
-                    0% {
-                        transform: translate(0, 0);
-                    }
-
-                    20% {
-                        transform: translate(-2px, 0);
-                    }
-
-                    40% {
-                        transform: translate(2px, 0);
-                    }
-
-                    60% {
-                        transform: translate(-2px, 0);
-                    }
-
-                    80% {
-                        transform: translate(2px, 0);
-                    }
-
-                    100% {
-                        transform: translate(0, 0);
-                    }
-                }
-
-                .shake {
-                    animation: shake 0.5s;
-                }
-            </style>
+            <!-- Error message -->
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-200 mb-4 animate__animated animate__fadeIn">404</h1>
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-300 mb-6 animate__animated animate__fadeIn animate__delay-1s">
+                Oops! Wrong Gateway
+            </h2>
+            <p id="typewriter" class="text-lg text-gray-400 mb-8 max-w-md mx-auto animate__animated animate__fadeIn animate__delay-2s">
+                <!-- Text will be typed here -->
+            </p>
 
             <script>
-                document.querySelector('.gradient-toggle-btn').addEventListener('click', function () {
-                    const button = this;
-                    if (button.style.backgroundImage.includes('to right')) {
-                        button.style.backgroundImage = 'linear-gradient(225deg, #FFD700, #FF8C00)';
-                    } else {
-                        button.style.backgroundImage = 'linear-gradient(135deg, #FFD700, #FF8C00)';
+                const message = "The page you're looking for doesn't exist or may have been moved. Let's get you back on track.";
+                const element = document.getElementById('typewriter');
+                let index = 0;
+
+                function typeWriter() {
+                    if (index < message.length) {
+                        element.innerHTML += message.charAt(index);
+                        index++;
+                        setTimeout(typeWriter, 50);
                     }
-                    // Shake effect
-                    button.classList.remove('shake');
-                    void button.offsetWidth;
-                    button.classList.add('shake');
+                }
+
+                window.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(typeWriter, 2000);
                 });
             </script>
 
+            <!-- Action button -->
             <div class="animate__animated animate__fadeIn animate__delay-3s">
-                <a href="/"
-                    class="gradient-toggle-btn inline-block font-semibold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                    style="background-image: linear-gradient(135deg, #FFD700, #FF8C00);">
+                <a href="index.html" class="gradient-toggle-btn inline-block font-semibold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl btn-hover" style="background-image: linear-gradient(135deg, #FFD700, #FF8C00);">
                     Return to Homepage
                 </a>
             </div>
+
             <!-- Additional helpful links -->
-            <div class="mt-12 pt-6 border-t border-gray-200 animate__animated animate__fadeIn animate__delay-4s">
-                <p class="text-gray-500 mb-4">Or try these pages:</p>
+            <div class="mt-12 pt-6 border-t border-gray-700 animate__animated animate__fadeIn animate__delay-4s">
+                <p class="text-gray-400 mb-4">Or try these pages:</p>
                 <div class="flex justify-center space-x-4">
-                    <a href="/about" class="text-teal-500 hover:text-teal-600 transition-colors">About</a>
-                    <a href="/experience" class="text-teal-500 hover:text-teal-600 transition-colors">Experience</a>
-                    <a href="/contact" class="text-teal-500 hover:text-teal-600 transition-colors">Contact</a>
+                    <a href="about.html" class="text-accent hover:text-accent transition-colors">About</a>
+                    <a href="experience.html" class="text-accent hover:text-accent transition-colors">Experience</a>
+                    <a href="contact.html" class="text-accent hover:text-accent transition-colors">Contact</a>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-white py-12 px-6 text-gray-600">
+    <!-- Footer -->
+    <footer class="py-12 px-6">
         <div class="max-w-7xl mx-auto">
-
             <!-- Top: Name + Navigation -->
-            <div class="flex flex-col md:flex-row items-center text-center w-full">
-                <div class="mb-6 md:mb-0 w-full">
-                    <a href="index.html" class="text-2xl font-bold text-primary">Sayed Ibn Masud</a>
-                    <p class="mt-2">© <span id="currentYear"></span> All rights reserved.</p>
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <!-- Left: Name & Year -->
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+                    <p class="mt-2 text-gray-400">© <span id="currentYear"></span> All rights reserved.</p>
                 </div>
             </div>
-
             <!-- Bottom: Credits -->
-            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm">
-                <p class="mx-auto">
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+                <p>
                     Designed and developed by
-                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer"
-                        class="text-accent font-medium hover:underline transition">
+                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="text-accent font-medium hover:underline transition">
                         Raiyan Bin Rashid
                     </a>
                 </p>
@@ -352,19 +430,23 @@
     <!-- Bottom Navigation (Mobile Only) -->
     <div class="bottom-nav md:hidden" id="bottomNav">
         <div class="bottom-nav-container">
-            <a href="/" class="nav-item" id="navHome">
+            <a href="index.html" class="nav-item" id="navHome">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
-            <a href="/about" class="nav-item" id="navAbout">
+            <a href="about.html" class="nav-item" id="navAbout">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-user"></i>
                 <span>About</span>
             </a>
-            <a href="/experience" class="nav-item" id="navExperience">
+            <a href="experience.html" class="nav-item" id="navExperience">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-briefcase"></i>
                 <span>Experience</span>
             </a>
-            <a href="/contact" class="nav-item" id="navContact">
+            <a href="contact.html" class="nav-item" id="navContact">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
@@ -372,19 +454,116 @@
     </div>
 
     <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Set initial theme to dark (default)
+        document.body.classList.remove('light-mode');
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+
+            // Trigger a smooth transition for all theme-dependent elements
+            document.querySelectorAll('*').forEach(el => {
+                el.style.transition = 'background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease';
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.transition = '';
+                });
+            }, 500);
+        }
+
+        themeToggle?.addEventListener('click', toggleTheme);
+        mobileThemeToggle?.addEventListener('click', toggleTheme);
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        // Track cursor position (desktop)
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+        });
+
+        // Hover effects (desktop)
+        if (!isTouchDevice) {
+            document.querySelectorAll('a, button, .nav-item, .btn-hover-effect').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursorDot.classList.add('active');
+                });
+                element.addEventListener('mouseleave', () => {
+                    cursorDot.classList.remove('active');
+                });
+            });
+        }
+
+        // Click animation (both mobile & desktop)
+        function triggerClickEffect(e) {
+            // Set position (works for both mouse and touch)
+            const x = e.clientX || e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+            const y = e.clientY || e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+            if (x && y) {
+                cursorDot.style.left = `${x}px`;
+                cursorDot.style.top = `${y}px`;
+            }
+
+            // Trigger click animation
+            cursorDot.classList.remove('click'); // Reset (if already animating)
+            void cursorDot.offsetWidth; // Force reflow
+            cursorDot.classList.add('click');
+
+            // Reset after animation
+            setTimeout(() => {
+                cursorDot.classList.remove('click');
+            }, 300);
+        }
+
+        // Apply click effect
+        document.addEventListener('click', triggerClickEffect);
+        document.addEventListener('touchstart', triggerClickEffect);
+
+        // Mobile behavior: Show cursor only when interacting
+        if (isTouchDevice) {
+            document.body.classList.add('touch-active');
+
+            const hideCursor = () => {
+                cursorDot.style.display = 'none';
+            };
+
+            const showCursor = (e) => {
+                const x = e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+                const y = e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+                if (x && y) {
+                    cursorDot.style.display = 'block';
+                    cursorDot.style.left = `${x}px`;
+                    cursorDot.style.top = `${y}px`;
+                    setTimeout(hideCursor, 1000); // Hide after 1s of inactivity
+                }
+            };
+
+            document.addEventListener('touchstart', showCursor);
+            document.addEventListener('touchmove', showCursor);
+        }
+
         // Set current year
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Add micro-interaction to button
-        document.querySelector('.btn-hover').addEventListener('mousedown', function () {
-            this.classList.add('transform', 'scale-95');
-        });
-        document.querySelector('.btn-hover').addEventListener('mouseup', function () {
-            this.classList.remove('transform', 'scale-95');
-        });
-
         // Sticky Navigation
-        const desktopHeader = document.querySelector('.sticky-nav');
+        const desktopHeader = document.querySelector('.desktop-header');
         const mobileHeader = document.querySelector('.mobile-header');
         const bottomNav = document.getElementById('bottomNav');
 
@@ -400,35 +579,12 @@
             }
         });
 
-        // Bottom nav active state
-        const currentPage = window.location.pathname;
-        const navItems = {
-            '/': 'navHome',
-            '/about': 'navAbout',
-            '/experience': 'navExperience',
-            '/contact': 'navContact'
-        };
-
-        // Reset all active states
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('active');
-        });
-
-        // Set active state for current page
-        if (navItems[currentPage]) {
-            const activeNavItem = document.getElementById(navItems[currentPage]);
-            if (activeNavItem) {
-                activeNavItem.classList.add('active');
-            }
-        }
-
         // Bottom nav click animation
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function (e) {
+            item.addEventListener('click', function(e) {
                 if (!this.classList.contains('active')) {
                     // Add shake animation to the clicked item
                     this.classList.add('shake');
-
                     // Remove shake class after animation completes
                     setTimeout(() => {
                         this.classList.remove('shake');
@@ -438,5 +594,4 @@
         });
     </script>
 </body>
-
 </html>
