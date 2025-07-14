@@ -6,86 +6,101 @@
     <title>Experience | Sayed Ibn Masud | Product Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
+            --primary: #E2E8F0;
+            --accent: #67a8bd;
+            --secondary: #1E293B;
+            --text: #E2E8F0;
+            --callout: #FF9552;
+            --bg: #0F172A;
+            --card-bg: #1E293B;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        .light-mode {
             --primary: #1E2A38;
             --accent: #67a8bd;
             --secondary: #F5F5F7;
             --text: #222222;
             --callout: #FF9552;
+            --bg: #FFFFFF;
+            --card-bg: #F5F5F7;
+            --nav-bg: rgba(255, 255, 255, 0.95);
         }
-        
+
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--text);
-            background-color: white;
+            background-color: var(--bg);
             overflow-x: hidden;
             scroll-behavior: smooth;
-            padding-bottom: 72px; /* Space for bottom nav */
+            padding-bottom: 72px;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
-        
+
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
         }
-        
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent);
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: 
-        transform 0.1s ease,
-        width 0.2s ease,
-        height 0.2s ease,
-        opacity 0.2s ease;
-    mix-blend-mode: difference;
-}
 
-/* Hover effect (desktop) */
-.cursor-dot.active {
-    width: 50px;
-    height: 50px;
-    opacity: 0.5;
-}
+        .desktop-header {
+            display: none;
+        }
 
-/* Click effect (both mobile & desktop) */
-.cursor-dot.click {
-    width: 80px;
-    height: 80px;
-    opacity: 0;
-    transition: 
-        width 0.3s ease-out,
-        height 0.3s ease-out,
-        opacity 0.3s ease-out;
-}
+        @media (min-width: 768px) {
+            .desktop-header {
+                display: flex;
+            }
+            .mobile-header {
+                display: none;
+            }
+        }
 
-/* Hide cursor on mobile by default */
-@media (max-width: 767px) {
-    .cursor-dot {
-        display: none;
-        opacity: 1;
-    }
-    
-    /* Show cursor only when user interacts */
-    body.touch-active .cursor-dot {
-        display: block;
-    }
-}
-        
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--callout);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease, background-color 0.5s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot.active {
+            width: 50px;
+            height: 50px;
+            opacity: 0.5;
+        }
+
+        .cursor-dot.click {
+            width: 80px;
+            height: 80px;
+            opacity: 0;
+            transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        @media (max-width: 767px) {
+            .cursor-dot {
+                display: none;
+            }
+            body.touch-active .cursor-dot {
+                display: block;
+            }
+        }
+
         .nav-link {
             position: relative;
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -96,54 +111,54 @@
             background-color: var(--accent);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         .btn-hover-effect {
             transition: all 0.3s ease;
             transform: translateY(0);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-hover-effect:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         .btn-hover-effect:active {
             transform: translateY(1px);
         }
-        
+
         .sticky-nav {
             transition: all 0.3s ease;
+            background-color: var(--nav-bg);
         }
-        
+
         .sticky-nav.scrolled {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        
+
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .timeline-item {
             position: relative;
             padding-left: 2rem;
             margin-bottom: 2rem;
         }
-        
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -153,7 +168,7 @@
             height: 100%;
             background-color: var(--accent);
         }
-        
+
         .timeline-dot {
             position: absolute;
             left: -6px;
@@ -163,7 +178,7 @@
             border-radius: 50%;
             background-color: var(--accent);
         }
-        
+
         .skill-badge {
             display: inline-block;
             padding: 0.5rem 1rem;
@@ -172,42 +187,42 @@
             margin: 0.25rem;
             transition: all 0.3s ease;
         }
-        
+
         .skill-badge:hover {
             transform: translateY(-3px);
             background-color: var(--accent);
             color: white;
         }
-        
+
         .section-divider {
             width: 80px;
             height: 4px;
             background-color: var(--accent);
             margin: 2rem auto;
         }
-        
+
         .experience-card {
             transition: all 0.3s ease;
             border-radius: 0.75rem;
-            background-color: white;
+            background-color: var(--card-bg);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        
+
         .experience-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .company-logo {
             width: 60px;
             height: 60px;
             object-fit: contain;
             border-radius: 12px;
-            background-color: white;
+            background-color: var(--card-bg);
             padding: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        
+
         .role-badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -219,200 +234,305 @@
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
         }
-        
-        /* Page transition overlay */
-        .transition-overlay {
+
+        .page-transition {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 99999;
-            transform: translateY(100%);
-            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            background-color: var(--bg);
+            z-index: 999;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.6s ease-in-out;
         }
-        
-        .transition-overlay.active {
-            transform: translateY(0);
+
+        .page-transition.active {
+            transform: scaleY(1);
+            transform-origin: top;
         }
-        
-        /* Bottom Navigation */
+
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 30px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            overflow: hidden;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--callout);
+            transition: all 0.3s ease;
+            left: 5px;
+        }
+
+        .light-mode .theme-toggle::before {
+            transform: translateX(30px);
+        }
+
+        .theme-toggle i {
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .theme-toggle .sun {
+            left: 7px;
+            opacity: 0;
+            color: #FFD700;
+        }
+
+        .theme-toggle .moon {
+            right: 7px;
+            opacity: 1;
+            color: #E2E8F0;
+        }
+
+        .light-mode .theme-toggle .sun {
+            opacity: 1;
+        }
+
+        .light-mode .theme-toggle .moon {
+            opacity: 0;
+        }
+
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: white;
+            background-color: var(--nav-bg);
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             z-index: 40;
             transition: all 0.3s ease;
+            padding: 12px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .bottom-nav.scrolled {
             padding: 8px 0;
         }
-        
-        .bottom-nav.scrolled {
-            padding: 4px 0;
-        }
-        
+
         .bottom-nav-container {
             display: flex;
             justify-content: space-around;
             max-width: 100%;
             margin: 0 auto;
         }
-        
+
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
-            color: var(--primary);
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
         .nav-item.active {
             color: var(--accent);
+            transform: translateY(-8px);
         }
-        
+
+        .nav-item.active::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
         .nav-item i {
             font-size: 20px;
             margin-bottom: 4px;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item span {
             font-size: 10px;
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item:hover {
             color: var(--accent);
+            transform: translateY(-3px);
         }
-        
+
         .nav-item:active {
             transform: scale(0.95);
         }
-        
+
         .nav-item.active i {
-            transform: translateY(-3px);
+            animation: bounce 0.5s ease;
         }
-        
-        .nav-item.shake {
-            animation: shake 0.5s ease;
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
         }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-3px); }
-            40%, 80% { transform: translateX(3px); }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
-        
-        /* Mobile Header */
-        .mobile-header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60px;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 50;
+
+        .nav-item .nav-icon-bg {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0;
             transition: all 0.3s ease;
+            z-index: -1;
         }
-        
-        .mobile-header-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-align: center;
-            transition: all 0.3s ease;
+
+        .nav-item.active .nav-icon-bg {
+            opacity: 0.1;
+            animation: float 3s ease-in-out infinite;
         }
-        
-        .mobile-header.scrolled .mobile-header-title {
-            font-size: 1rem;
-        }
-        
-        @media (min-width: 768px) {
-            .bottom-nav {
-                display: none;
+
+        @media (max-width: 767px) {
+            .hero-content {
+                text-align: center;
             }
-            
-            body {
-                padding-bottom: 0;
+
+            .hero-buttons {
+                justify-content: center;
             }
-            
-            .mobile-header {
-                display: none;
+
+            .about-text {
+                text-align: center;
             }
-            
-            .desktop-header {
-                display: flex;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .experience-card {
-                padding: 1.5rem;
-            }
-            
-            .company-logo {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .timeline-item {
+
+            .experience-item {
                 padding-left: 1.5rem;
             }
+
+            .mobile-header {
+                transition: all 0.3s ease;
+                padding: 1rem 0;
+                background-color: var(--nav-bg);
+            }
+
+            .mobile-header.scrolled {
+                padding: 0.5rem 0;
+            }
+
+            .theme-toggle {
+                width: 50px;
+                height: 25px;
+            }
+
+            .light-mode .theme-toggle::before {
+                transform: translateX(25px);
+            }
+        }
+
+        .bg-card {
+            background-color: var(--card-bg);
+            transition: background-color 0.5s ease;
+        }
+
+        .bg-gray-50 {
+            background-color: var(--secondary);
+        }
+
+        .bg-white {
+            background-color: var(--bg);
         }
     </style>
 </head>
 <body class="antialiased">
     <!-- Page Transition Overlay -->
-    <div class="transition-overlay"></div>
-    
+    <div class="page-transition" id="pageTransition"></div>
+
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
 
     <!-- Desktop Navigation -->
-    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm desktop-header">
+    <header class="sticky-nav fixed w-full top-0 z-50 py-4 px-6 shadow-sm desktop-header">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- Navigation aligned to the right -->
-            <nav class="flex space-x-8">
-                <a href="index.html" class="nav-link font-medium">Home</a>
-                <a href="about.html" class="nav-link font-medium">About</a>
-                <a href="experience.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Experience</a>
-                <a href="contact.html" class="nav-link font-medium">Contact</a>
-            </nav>
+            <div class="flex items-center space-x-4">
+                <!-- No text in the middle for desktop -->
+            </div>
+            <div class="flex items-center space-x-8">
+                <nav class="flex space-x-8">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium">About</a>
+                    <a href="experience.html" class="nav-link font-medium text-accent" style="color: var(--accent);">Experience</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact</a>
+                </nav>
+                <div class="theme-toggle ml-4" id="themeToggle">
+                    <i class="fas fa-sun sun"></i>
+                    <i class="fas fa-moon moon"></i>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Mobile Header (only shows on mobile) -->
-    <header class="mobile-header sticky-nav" id="mobileHeader">
-        <div class="flex justify-center w-full">
-            <a href="index.html" class="mobile-header-title">Sayed Ibn Masud</a>
+    <header class="sticky-nav fixed w-full top-0 z-50 py-4 px-6 shadow-sm mobile-header">
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+            <div class="theme-toggle" id="mobileThemeToggle">
+                <i class="fas fa-sun sun"></i>
+                <i class="fas fa-moon moon"></i>
+            </div>
         </div>
     </header>
 
     <!-- Professional Experience Section -->
-    <section class="py-20 px-6 bg-white">
+    <section class="py-20 px-6 bg-secondary">
         <div class="max-w-4xl mx-auto">
             <div class="animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" style="color: var(--primary);">Professional Roles</h2>
-                
+
                 <!-- SELISE Group -->
-                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll bg-card">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://scontent-sin2-3.xx.fbcdn.net/v/t39.30808-6/301013846_1073122106781392_7819417936663582116_n.png?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Hp-1NAF4TvoQ7kNvwGwRrpl&_nc_oc=AdnfU1PhANq6W9do7qDkihKQv7cgJQ3Jx94w9rGDVWdy0LGrQlmhdEVPNBQKo_2CutiGW8wks-_gDwPPgqOZ9Z5S&_nc_zt=23&_nc_ht=scontent-sin2-3.xx&_nc_gid=f_qKjmwoLbqD8_XZe42moA&oh=00_AfRpm2G3V2u3ut0Fj20jxLmPWOEoOc5hpllxaRVH4qi7XQ&oe=687822D0" alt="SELISE Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
                             <h3 class="text-2xl font-bold" style="color: var(--primary);">SELISE Group</h3>
-                            <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-600">
+                            <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-400">
                                 <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -429,15 +549,15 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-8">
                         <!-- Business Operations Manager -->
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="pl-4">
                                 <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Business Operations Manager</h4>
-                                <p class="text-gray-600 mb-3">Jan 2025 – Present</p>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <p class="text-gray-400 mb-3">Jan 2025 – Present</p>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-400">
                                     <li>Lead product management and business operations for enterprise software solutions</li>
                                     <li>Manage stakeholder relationships and cross-functional teams to align technical delivery with business goals</li>
                                     <li>Design operational frameworks that scale with business growth</li>
@@ -445,14 +565,14 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <!-- Deputy Business Operations Manager -->
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="pl-4">
                                 <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Deputy Business Operations Manager</h4>
-                                <p class="text-gray-600 mb-3">Jan 2023 – Dec 2024</p>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <p class="text-gray-400 mb-3">Jan 2023 – Dec 2024</p>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-400">
                                     <li>Handled IT business analysis and contributed to strategic planning</li>
                                     <li>Facilitated communication between technical teams and business stakeholders</li>
                                     <li>Developed metrics and KPIs to measure operational performance</li>
@@ -460,14 +580,14 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <!-- Business Analyst -->
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="pl-4">
                                 <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Business Analyst</h4>
-                                <p class="text-gray-600 mb-3">Jul 2021 – Dec 2022</p>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <p class="text-gray-400 mb-3">Jul 2021 – Dec 2022</p>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-400">
                                     <li>Bridged technical and business teams for process optimization</li>
                                     <li>Conducted requirement gathering sessions and translated them into technical specifications</li>
                                     <li>Created documentation for business processes and system functionalities</li>
@@ -477,14 +597,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- North South University -->
-                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll bg-card">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://logowik.com/content/uploads/images/north-south-university1451.jpg" alt="NSU Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
                             <h3 class="text-2xl font-bold" style="color: var(--primary);">North South University</h3>
-                            <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-600">
+                            <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-400">
                                 <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -501,15 +621,15 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-8">
                         <!-- Lab Officer -->
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="pl-4">
                                 <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Lab Officer</h4>
-                                <p class="text-gray-600 mb-3">Sep 2019 – Jan 2021</p>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <p class="text-gray-400 mb-3">Sep 2019 – Jan 2021</p>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-400">
                                     <li>Managed academic computer labs and provided technical support</li>
                                     <li>Coordinated lab schedules and maintained equipment inventory</li>
                                     <li>Assisted faculty with lab-based curriculum implementation</li>
@@ -519,14 +639,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Projuktir Avijatri -->
-                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-12 animate-on-scroll bg-card">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://cdn.brandfetch.io/id4SaOIC1t/w/234/h/114/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1747528380265" alt="Projuktir Avijatri Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
                             <h3 class="text-2xl font-bold" style="color: var(--primary);">Projuktir Avijatri</h3>
-                            <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-600">
+                            <div class="flex flex-wrap justify-center md:justify-start items-center mt-2 text-gray-400">
                                 <span class="flex items-center mr-4 mb-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -543,15 +663,15 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-8">
                         <!-- Executive Editor -->
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="pl-4">
                                 <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Executive Editor</h4>
-                                <p class="text-gray-600 mb-3">Dec 2017 – Sep 2019</p>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <p class="text-gray-400 mb-3">Dec 2017 – Sep 2019</p>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-400">
                                     <li>Led tech content creation and publication strategy</li>
                                     <li>Managed editorial direction and content quality standards</li>
                                     <li>Coordinated with writers, designers, and developers for content production</li>
@@ -566,71 +686,71 @@
     </section>
 
     <!-- Volunteering Section -->
-    <section class="py-20 px-6 bg-gray-50">
+    <section class="py-20 px-6 bg-secondary">
         <div class="max-w-4xl mx-auto">
             <div class="animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" style="color: var(--primary);">Volunteering & Community</h2>
-                
+
                 <!-- Mozilla -->
-                <div class="experience-card p-6 md:p-8 mb-8 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 mb-8 animate-on-scroll bg-card">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://assets.mofoprod.net/network/images/mo-fo_logo-bw.2e16d0ba.fill-890x890-c100.format-jpeg_ygYukGZ.jpg" alt="Mozilla Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
                             <h3 class="text-2xl font-bold" style="color: var(--primary);">Mozilla</h3>
                             <div class="flex flex-wrap justify-center md:justify-start mt-2">
-                                <span class="role-badge" style="background-color: #FFEBCD;">Open Source</span>
-                                <span class="role-badge" style="background-color: #E0FFFF;">Community</span>
-                                <span class="role-badge" style="background-color: #F0FFF0;">Leadership</span>
+                                <span class="role-badge" style="background-color: #00ff155b;">Open Source</span>
+                                <span class="role-badge" style="background-color: #fff7008e;">Community</span>
+                                <span class="role-badge" style="background-color: rgba(0, 0, 0, 0.162);">Leadership</span>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-6">
                         <div class="pl-4">
                             <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Mozilla Representative</h4>
-                            <p class="text-gray-600 mb-3">2019 – 2020</p>
-                            <p class="text-gray-700">Organized community events and led contributor outreach programs to promote open web technologies.</p>
+                            <p class="text-gray-400 mb-3">2019 – 2020</p>
+                            <p class="text-gray-400">Organized community events and led contributor outreach programs to promote open web technologies.</p>
                         </div>
-                        
+
                         <div class="pl-4">
                             <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">QA Contributor</h4>
-                            <p class="text-gray-600 mb-3">2015 – 2021</p>
-                            <p class="text-gray-700">Contributed to quality assurance across various Mozilla projects, including Firefox and web compatibility testing.</p>
+                            <p class="text-gray-400 mb-3">2015 – 2021</p>
+                            <p class="text-gray-400">Contributed to quality assurance across various Mozilla projects, including Firefox and web compatibility testing.</p>
                         </div>
-                        
+
                         <div class="pl-4">
                             <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">NSU Mozilla Club</h4>
                             <div class="space-y-4">
                                 <div>
-                                    <p class="text-gray-600 mb-1">Co-Club Lead (2019)</p>
-                                    <p class="text-gray-700">Led the university Mozilla Club, organizing workshops and hackathons to promote open source contributions.</p>
+                                    <p class="text-gray-400 mb-1">Co-Club Lead (2019)</p>
+                                    <p class="text-gray-400">Led the university Mozilla Club, organizing workshops and hackathons to promote open source contributions.</p>
                                 </div>
                                 <div>
-                                    <p class="text-gray-600 mb-1">Core Member (2016–2019)</p>
-                                    <p class="text-gray-700">Active member organizing tech events and mentoring students in web technologies.</p>
+                                    <p class="text-gray-400 mb-1">Core Member (2016–2019)</p>
+                                    <p class="text-gray-400">Active member organizing tech events and mentoring students in web technologies.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Microsoft -->
-                <div class="experience-card p-6 md:p-8 animate-on-scroll">
+                <div class="experience-card p-6 md:p-8 animate-on-scroll bg-card">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
                         <img src="https://www.pngmart.com/files/4/Microsoft-Logo-PNG-Photos.png" alt="Microsoft Logo" class="company-logo mx-auto md:mx-0">
                         <div class="text-center md:text-left w-full">
                             <h3 class="text-2xl font-bold" style="color: var(--primary);">Microsoft</h3>
                             <div class="flex flex-wrap justify-center md:justify-start mt-2">
-                                <span class="role-badge" style="background-color: #E6E6FA;">Student Ambassador</span>
-                                <span class="role-badge" style="background-color: #FFF0F5;">Tech Evangelism</span>
+                                <span class="role-badge" style="background-color: #0000ff4e;">Student Ambassador</span>
+                                <span class="role-badge" style="background-color: #51007164;">Tech Evangelism</span>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="pl-4">
                         <h4 class="text-xl font-bold mb-2" style="color: var(--primary);">Microsoft Student Partner</h4>
-                        <p class="text-gray-600 mb-3">2016 – 2017</p>
-                        <p class="text-gray-700">Promoted Microsoft developer tools and technologies on campus through workshops and hackathons. Organized tech events and provided student support for Microsoft products.</p>
+                        <p class="text-gray-400 mb-3">2016 – 2017</p>
+                        <p class="text-gray-400">Promoted Microsoft developer tools and technologies on campus through workshops and hackathons. Organized tech events and provided student support for Microsoft products.</p>
                     </div>
                 </div>
             </div>
@@ -638,11 +758,11 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 px-6 bg-white">
+    <section class="py-20 px-6 bg-secondary">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--primary);">Want to discuss opportunities?</h2>
-            <p class="text-xl mb-8 text-gray-600">I'm always interested in connecting with professionals and exploring new challenges.</p>
-            
+            <p class="text-xl mb-8 text-gray-400">I'm always interested in connecting with professionals and exploring new challenges.</p>
+
             <a href="contact.html" class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium text-white" style="background-color: var(--accent);">
                 Get In Touch →
             </a>
@@ -650,33 +770,28 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white py-12 px-6 text-gray-600">
+    <footer class="py-12 px-6">
         <div class="max-w-7xl mx-auto">
-
             <!-- Top: Name + Navigation -->
             <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-
                 <!-- Left: Name & Year -->
                 <div class="mb-6 md:mb-0">
-                    <a href="index.html" class="text-2xl font-bold text-primary">Sayed Ibn Masud</a>
-                    <p class="mt-2">© <span id="currentYear"></span> All rights reserved.</p>
+                    <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+                    <p class="mt-2 text-gray-400">© <span id="currentYear"></span> All rights reserved.</p>
                 </div>
-
                 <!-- Right: Navigation -->
                 <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    <a href="index.html" class="hover:text-primary transition font-medium">Home</a>
-                    <a href="about.html" class="hover:text-primary transition font-medium">About</a>
-                    <a href="experience.html" class="hover:text-primary transition font-medium">Experience</a>
+                    <a href="index.html" class="hover:text-accent transition font-medium">Home</a>
+                    <a href="about.html" class="hover:text-accent transition font-medium">About</a>
+                    <a href="experience.html" class="hover:text-accent transition font-medium">Experience</a>
                     <a href="contact.html" class="text-accent font-medium hover:underline transition">Contact</a>
                 </nav>
             </div>
-
             <!-- Bottom: Credits -->
-            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm">
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
                 <p>
                     Designed and developed by
-                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer"
-                        class="text-accent font-medium hover:underline transition">
+                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="text-accent font-medium hover:underline transition">
                         Raiyan Bin Rashid
                     </a>
                 </p>
@@ -688,18 +803,22 @@
     <div class="bottom-nav md:hidden" id="bottomNav">
         <div class="bottom-nav-container">
             <a href="index.html" class="nav-item" id="navHome">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
             <a href="about.html" class="nav-item" id="navAbout">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-user"></i>
                 <span>About</span>
             </a>
             <a href="experience.html" class="nav-item active" id="navExperience">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-briefcase"></i>
                 <span>Experience</span>
             </a>
             <a href="contact.html" class="nav-item" id="navContact">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
@@ -707,98 +826,131 @@
     </div>
 
     <script>
-        // Custom Cursor
-const cursorDot = document.querySelector('.cursor-dot');
-const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-// Track cursor position (desktop)
-window.addEventListener('mousemove', (e) => {
-    cursorDot.style.left = `${e.clientX}px`;
-    cursorDot.style.top = `${e.clientY}px`;
-});
+        // Set initial theme to dark (default)
+        document.body.classList.remove('light-mode');
 
-// Hover effects (desktop)
-if (!isTouchDevice) {
-    document.querySelectorAll('a, button, .nav-item, .btn-hover-effect').forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            cursorDot.classList.add('active');
-        });
-        element.addEventListener('mouseleave', () => {
-            cursorDot.classList.remove('active');
-        });
-    });
-}
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
 
-// Click animation (both mobile & desktop)
-function triggerClickEffect(e) {
-    // Set position (works for both mouse and touch)
-    const x = e.clientX || e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
-    const y = e.clientY || e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
-    
-    if (x && y) {
-        cursorDot.style.left = `${x}px`;
-        cursorDot.style.top = `${y}px`;
-    }
+            // Trigger a smooth transition for all theme-dependent elements
+            document.querySelectorAll('*').forEach(el => {
+                el.style.transition = 'background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease';
+            });
 
-    // Trigger click animation
-    cursorDot.classList.remove('click'); // Reset (if already animating)
-    void cursorDot.offsetWidth; // Force reflow
-    cursorDot.classList.add('click');
-
-    // Reset after animation
-    setTimeout(() => {
-        cursorDot.classList.remove('click');
-    }, 300);
-}
-
-// Apply click effect
-document.addEventListener('click', triggerClickEffect);
-document.addEventListener('touchstart', triggerClickEffect);
-
-// Mobile behavior: Show cursor only when interacting
-if (isTouchDevice) {
-    document.body.classList.add('touch-active');
-    
-    const hideCursor = () => {
-        cursorDot.style.display = 'none';
-    };
-    
-    const showCursor = (e) => {
-        const x = e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
-        const y = e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
-        
-        if (x && y) {
-            cursorDot.style.display = 'block';
-            cursorDot.style.left = `${x}px`;
-            cursorDot.style.top = `${y}px`;
-            setTimeout(hideCursor, 1000); // Hide after 1s of inactivity
+            setTimeout(() => {
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.transition = '';
+                });
+            }, 500);
         }
-    };
-    
-    document.addEventListener('touchstart', showCursor);
-    document.addEventListener('touchmove', showCursor);
-}
+
+        themeToggle?.addEventListener('click', toggleTheme);
+        mobileThemeToggle?.addEventListener('click', toggleTheme);
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        // Track cursor position (desktop)
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+        });
+
+        // Hover effects (desktop)
+        if (!isTouchDevice) {
+            document.querySelectorAll('a, button, .nav-item, .btn-hover-effect').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursorDot.classList.add('active');
+                });
+                element.addEventListener('mouseleave', () => {
+                    cursorDot.classList.remove('active');
+                });
+            });
+        }
+
+        // Click animation (both mobile & desktop)
+        function triggerClickEffect(e) {
+            // Set position (works for both mouse and touch)
+            const x = e.clientX || e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+            const y = e.clientY || e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+            if (x && y) {
+                cursorDot.style.left = `${x}px`;
+                cursorDot.style.top = `${y}px`;
+            }
+
+            // Trigger click animation
+            cursorDot.classList.remove('click'); // Reset (if already animating)
+            void cursorDot.offsetWidth; // Force reflow
+            cursorDot.classList.add('click');
+
+            // Reset after animation
+            setTimeout(() => {
+                cursorDot.classList.remove('click');
+            }, 300);
+        }
+
+        // Apply click effect
+        document.addEventListener('click', triggerClickEffect);
+        document.addEventListener('touchstart', triggerClickEffect);
+
+        // Mobile behavior: Show cursor only when interacting
+        if (isTouchDevice) {
+            document.body.classList.add('touch-active');
+
+            const hideCursor = () => {
+                cursorDot.style.display = 'none';
+            };
+
+            const showCursor = (e) => {
+                const x = e.touches?.[0]?.clientX || e.changedTouches?.[0]?.clientX;
+                const y = e.touches?.[0]?.clientY || e.changedTouches?.[0]?.clientY;
+
+                if (x && y) {
+                    cursorDot.style.display = 'block';
+                    cursorDot.style.left = `${x}px`;
+                    cursorDot.style.top = `${y}px`;
+                    setTimeout(hideCursor, 1000); // Hide after 1s of inactivity
+                }
+            };
+
+            document.addEventListener('touchstart', showCursor);
+            document.addEventListener('touchmove', showCursor);
+        }
 
         // Sticky Navigation
-        const header = document.querySelector('.sticky-nav');
+        const desktopHeader = document.querySelector('.desktop-header');
+        const mobileHeader = document.querySelector('.mobile-header');
         const bottomNav = document.getElementById('bottomNav');
-        const mobileHeader = document.getElementById('mobileHeader');
-        
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-                bottomNav.classList.add('scrolled');
-                mobileHeader.classList.add('scrolled');
+                if (desktopHeader) desktopHeader.classList.add('scrolled');
+                if (mobileHeader) mobileHeader.classList.add('scrolled');
+                if (bottomNav) bottomNav.classList.add('scrolled');
             } else {
-                header.classList.remove('scrolled');
-                bottomNav.classList.remove('scrolled');
-                mobileHeader.classList.remove('scrolled');
+                if (desktopHeader) desktopHeader.classList.remove('scrolled');
+                if (mobileHeader) mobileHeader.classList.remove('scrolled');
+                if (bottomNav) bottomNav.classList.remove('scrolled');
             }
         });
 
         // Animate on Scroll
         const animateElements = document.querySelectorAll('.animate-on-scroll');
-        
+
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -806,7 +958,7 @@ if (isTouchDevice) {
                 }
             });
         }, { threshold: 0.1 });
-        
+
         animateElements.forEach(element => {
             scrollObserver.observe(element);
         });
@@ -815,46 +967,52 @@ if (isTouchDevice) {
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
         // Page transition effect
-        const transitionOverlay = document.querySelector('.transition-overlay');
-        
+        const pageTransition = document.getElementById('pageTransition');
+
         document.querySelectorAll('a').forEach(link => {
             if (link.href.includes(window.location.origin) && !link.href.includes('#') && link.href !== window.location.href) {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const targetUrl = link.href;
-                    
-                    // Show transition overlay
-                    transitionOverlay.classList.add('active');
-                    
-                    // Wait for transition to complete
+
+                    // Start page transition
+                    pageTransition.classList.add('active');
+
+                    // Navigate after transition completes
                     setTimeout(() => {
-                        window.location.href = targetUrl;
+                        window.location.href = link.href;
                     }, 600);
                 });
             }
         });
-        
-        // Hide overlay when page loads
+
+        // Remove transition class when page loads
         window.addEventListener('load', () => {
             setTimeout(() => {
-                transitionOverlay.classList.remove('active');
+                pageTransition.classList.remove('active');
             }, 100);
         });
 
-        // Bottom nav click animation
+        // Bottom navigation active state
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const navItems = {
+            'index.html': 'navHome',
+            'about.html': 'navAbout',
+            'experience.html': 'navExperience',
+            'contact.html': 'navContact'
+        };
+
+        // Reset all active states
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                if (!this.classList.contains('active')) {
-                    // Add shake animation to the clicked item
-                    this.classList.add('shake');
-                    
-                    // Remove shake class after animation completes
-                    setTimeout(() => {
-                        this.classList.remove('shake');
-                    }, 500);
-                }
-            });
+            item.classList.remove('active');
         });
+
+        // Set active state for current page
+        if (navItems[currentPage]) {
+            const activeNavItem = document.getElementById(navItems[currentPage]);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+        }
     </script>
 </body>
 </html>

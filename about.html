@@ -1,51 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Sayed Ibn Masud | Product Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
+            --primary: #E2E8F0;
+            --accent: #67a8bd;
+            --secondary: #1E293B;
+            --text: #E2E8F0;
+            --callout: #FF9552;
+            --bg: #0F172A;
+            --card-bg: #1E293B;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        .light-mode {
             --primary: #1E2A38;
             --accent: #67a8bd;
             --secondary: #F5F5F7;
             --text: #222222;
             --callout: #FF9552;
+            --bg: #FFFFFF;
+            --card-bg: #F5F5F7;
+            --nav-bg: rgba(255, 255, 255, 0.95);
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--text);
-            background-color: white;
+            background-color: var(--bg);
             overflow-x: hidden;
             scroll-behavior: smooth;
             padding-bottom: 72px;
-            /* Space for bottom nav */
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
+        }
+
+        .desktop-header {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-header {
+                display: flex;
+            }
+            .mobile-header {
+                display: none;
+            }
         }
 
         .cursor-dot {
             width: 8px;
             height: 8px;
-            background-color: var(--accent);
+            background-color: var(--callout);
             border-radius: 50%;
             position: fixed;
             top: 0;
@@ -53,40 +71,27 @@
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition:
-                transform 0.1s ease,
-                width 0.2s ease,
-                height 0.2s ease,
-                opacity 0.2s ease;
+            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease, background-color 0.5s ease;
             mix-blend-mode: difference;
         }
 
-        /* Hover effect (desktop) */
         .cursor-dot.active {
             width: 50px;
             height: 50px;
             opacity: 0.5;
         }
 
-        /* Click effect (both mobile & desktop) */
         .cursor-dot.click {
             width: 80px;
             height: 80px;
             opacity: 0;
-            transition:
-                width 0.3s ease-out,
-                height 0.3s ease-out,
-                opacity 0.3s ease-out;
+            transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
         }
 
-        /* Hide cursor on mobile by default */
         @media (max-width: 767px) {
             .cursor-dot {
                 display: none;
-                opacity: 1;
             }
-
-            /* Show cursor only when user interacts */
             body.touch-active .cursor-dot {
                 display: block;
             }
@@ -128,12 +133,12 @@
 
         .sticky-nav {
             transition: all 0.3s ease;
+            background-color: var(--nav-bg);
         }
 
         .sticky-nav.scrolled {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -178,9 +183,10 @@
             display: inline-block;
             padding: 0.5rem 1rem;
             border-radius: 9999px;
-            background-color: var(--secondary);
+            background-color: var(--card-bg);
             margin: 0.25rem;
             transition: all 0.3s ease;
+            color: var(--text);
         }
 
         .skill-badge:hover {
@@ -196,23 +202,91 @@
             margin: 2rem auto;
         }
 
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg);
+            z-index: 999;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.6s ease-in-out;
+        }
 
         .page-transition.active {
             transform: scaleY(1);
             transform-origin: top;
         }
 
-        /* Bottom Navigation */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 30px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            overflow: hidden;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--callout);
+            transition: all 0.3s ease;
+            left: 5px;
+        }
+
+        .light-mode .theme-toggle::before {
+            transform: translateX(30px);
+        }
+
+        .theme-toggle i {
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .theme-toggle .sun {
+            left: 7px;
+            opacity: 0;
+            color: #FFD700;
+        }
+
+        .theme-toggle .moon {
+            right: 7px;
+            opacity: 1;
+            color: #E2E8F0;
+        }
+
+        .light-mode .theme-toggle .sun {
+            opacity: 1;
+        }
+
+        .light-mode .theme-toggle .moon {
+            opacity: 0;
+        }
+
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: white;
+            background-color: var(--nav-bg);
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             z-index: 40;
             transition: all 0.3s ease;
             padding: 12px 0;
+            backdrop-filter: blur(10px);
         }
 
         .bottom-nav.scrolled {
@@ -231,16 +305,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
-            color: var(--primary);
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
         }
 
         .nav-item.active {
             color: var(--accent);
+            transform: translateY(-8px);
+        }
+
+        .nav-item.active::before {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .nav-item i {
@@ -257,6 +352,7 @@
 
         .nav-item:hover {
             color: var(--accent);
+            transform: translateY(-3px);
         }
 
         .nav-item:active {
@@ -264,32 +360,43 @@
         }
 
         .nav-item.active i {
-            transform: translateY(-3px);
+            animation: bounce 0.5s ease;
         }
 
-        .nav-item.shake {
-            animation: shake 0.5s ease;
-        }
-
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
             }
-
-            20%,
-            60% {
-                transform: translateX(-3px);
-            }
-
-            40%,
-            80% {
-                transform: translateX(3px);
+            50% {
+                transform: translateY(-5px);
             }
         }
 
-        /* Mobile text alignment */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .nav-item .nav-icon-bg {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-item.active .nav-icon-bg {
+            opacity: 0.1;
+            animation: float 3s ease-in-out infinite;
+        }
+
         @media (max-width: 767px) {
             .hero-content {
                 text-align: center;
@@ -307,142 +414,105 @@
                 padding-left: 1.5rem;
             }
 
-            /* Mobile Header (only shows on mobile) */
             .mobile-header {
                 transition: all 0.3s ease;
                 padding: 1rem 0;
-                /* Initial padding */
+                background-color: var(--nav-bg);
             }
 
-            /* Scrolled state - smaller header */
             .mobile-header.scrolled {
                 padding: 0.5rem 0;
-                /* Reduced padding */
             }
 
-            .mobile-header.scrolled .text-2xl {
-                font-size: 1.25rem !important;
-                /* Shrink font size when scrolled */
-                transition: font-size 0.3s ease;
+            .theme-toggle {
+                width: 50px;
+                height: 25px;
             }
 
-            .desktop-nav {
-                display: none;
-            }
-
-            /* Center all section content on mobile */
-            .section-title,
-            .section-content,
-            .timeline-item {
-                text-align: center;
-            }
-
-            .timeline-item::before {
-                display: none;
-            }
-
-            .timeline-dot {
-                position: relative;
-                left: 0;
-                margin: 0 auto 1rem auto;
-                display: block;
-            }
-
-            .skill-badge {
-                font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
+            .light-mode .theme-toggle::before {
+                transform: translateX(25px);
             }
         }
 
-        @media (min-width: 768px) {
-            .bottom-nav {
-                display: none;
-            }
+        .bg-card {
+            background-color: var(--card-bg);
+            transition: background-color 0.5s ease;
+        }
 
-            body {
-                padding-bottom: 0;
-            }
+        .bg-gray-50 {
+            background-color: var(--secondary);
+        }
 
-            .mobile-header {
-                display: none;
-            }
-
-            .desktop-header {
-                display: flex;
-            }
+        .bg-white {
+            background-color: var(--bg);
         }
     </style>
 </head>
-
 <body class="antialiased">
     <!-- Page Transition Overlay -->
     <div class="page-transition" id="pageTransition"></div>
-
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
-
     <!-- Desktop Navigation -->
-    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm desktop-header">
+    <header class="sticky-nav fixed w-full top-0 z-50 py-4 px-6 shadow-sm desktop-header">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- Navigation aligned to the right -->
-            <nav class="flex space-x-8">
-                <a href="index.html" class="nav-link font-medium">Home</a>
-                <a href="about.html" class="nav-link font-medium text-accent" style="color: var(--accent);">About</a>
-                <a href="experience.html" class="nav-link font-medium">Experience</a>
-                <a href="contact.html" class="nav-link font-medium">Contact</a>
-            </nav>
+            <div class="flex items-center space-x-4">
+                <!-- No text in the middle for desktop -->
+            </div>
+            <div class="flex items-center space-x-8">
+                <nav class="flex space-x-8">
+                    <a href="index.html" class="nav-link font-medium">Home</a>
+                    <a href="about.html" class="nav-link font-medium text-accent">About</a>
+                    <a href="experience.html" class="nav-link font-medium">Experience</a>
+                    <a href="contact.html" class="nav-link font-medium">Contact</a>
+                </nav>
+                <div class="theme-toggle ml-4" id="themeToggle">
+                    <i class="fas fa-sun sun"></i>
+                    <i class="fas fa-moon moon"></i>
+                </div>
+            </div>
         </div>
     </header>
-
     <!-- Mobile Header (only shows on mobile) -->
-    <header class="sticky-nav fixed w-full top-0 z-50 bg-white py-4 px-6 shadow-sm mobile-header">
-        <div class="flex justify-center">
-            <a href="index.html" class="text-2xl font-bold text-primary" style="color: var(--primary);">Sayed Ibn
-                Masud</a>
+    <header class="sticky-nav fixed w-full top-0 z-50 py-4 px-6 shadow-sm mobile-header">
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+            <div class="theme-toggle" id="mobileThemeToggle">
+                <i class="fas fa-sun sun"></i>
+                <i class="fas fa-moon moon"></i>
+            </div>
         </div>
     </header>
-
     <!-- Hero Section -->
-    <section
-        class="min-h-[50vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <section class="min-h-[50vh] flex items-center justify-center pt-32 pb-16 px-6 bg-gradient-to-br from-bg to-secondary">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
             <h1 class="text-4xl md:text-5xl font-bold mb-6 hero-title" style="color: var(--primary);">About Sayed</h1>
             <div class="section-divider"></div>
-            <p class="text-xl md:text-2xl text-gray-600 hero-subtitle">Business Operations Manager with a product-driven
-                mindset</p>
+            <p class="text-xl md:text-2xl text-gray-400 hero-subtitle">Business Operations Manager with a product-driven mindset</p>
         </div>
     </section>
-
     <!-- Introduction Section -->
-    <section class="py-16 md:py-20 px-6 bg-white flex items-center justify-center">
+    <section class="py-16 md:py-20 px-6 bg-bg flex items-center justify-center">
         <div class="max-w-4xl w-full text-center">
             <div class="animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 section-title" style="color: var(--primary);">Who I Am
-                </h2>
-                <div class="bg-gray-50 rounded-xl p-6 md:p-8 shadow-sm section-content mx-auto max-w-2xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 section-title" style="color: var(--primary);">Who I Am</h2>
+                <div class="bg-card rounded-xl p-6 md:p-8 shadow-sm section-content mx-auto max-w-2xl">
                     <p class="text-lg md:text-xl mb-6 leading-relaxed about-text">
-                        I'm a Business Operations Manager with a product-driven mindset. Over the past few years, I've
-                        worked at SELISE to align technical delivery with strategic business goals. My work focuses on
-                        improving processes, leading cross-functional teams, and designing operational frameworks that
-                        scale.
+                        I'm a Business Operations Manager with a product-driven mindset. Over the past few years, I've worked at SELISE to align technical delivery with strategic business goals. My work focuses on improving processes, leading cross-functional teams, and designing operational frameworks that scale.
                     </p>
                     <p class="text-lg md:text-xl leading-relaxed about-text">
-                        I thrive in environments where strategy meets execution — and I believe in solving problems by
-                        listening deeply, acting decisively, and thinking long-term. My approach combines analytical
-                        rigor with creative problem-solving to drive meaningful business outcomes.
+                        I thrive in environments where strategy meets execution — and I believe in solving problems by listening deeply, acting decisively, and thinking long-term. My approach combines analytical rigor with creative problem-solving to drive meaningful business outcomes.
                     </p>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Skills Section -->
-    <section class="py-16 md:py-20 px-6 bg-gray-50">
+    <section class="py-16 md:py-20 px-6 bg-secondary">
         <div class="max-w-4xl mx-auto">
             <div class="animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title"
-                    style="color: var(--primary);">Core Skills & Strengths</h2>
-                <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm section-content">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title" style="color: var(--primary);">Core Skills & Strengths</h2>
+                <div class="bg-card rounded-xl p-6 md:p-8 shadow-sm section-content">
                     <div class="flex flex-wrap justify-center">
                         <div class="skill-badge animate-on-scroll">Stakeholder Management</div>
                         <div class="skill-badge animate-on-scroll">Agile Project Leadership</div>
@@ -459,129 +529,136 @@
             </div>
         </div>
     </section>
-
     <!-- Education Timeline -->
-    <section class="py-16 md:py-20 px-6 bg-white">
+    <section class="py-16 md:py-20 px-6 bg-bg">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold section-title" style="color: var(--primary);">Educational
-                    Journey</h2>
+                <h2 class="text-3xl md:text-4xl font-bold section-title" style="color: var(--primary);">Educational Journey</h2>
             </div>
-            <div class="relative border-l-4 border-gray-300 pl-4 md:pl-8">
+            <div class="relative border-l-4 border-gray-600 pl-4 md:pl-8">
                 <!-- Timeline Item 1 -->
-                <div class="absolute left-[-8px] top-0 w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg">
-                </div>
+                <div class="absolute left-[-8px] top-0 w-4 h-4 bg-accent rounded-full border-4 border-bg shadow-lg"></div>
                 <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">North South University
-                    </h3>
-                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Bachelor's Degree in Computer
-                        Science and Engineering</p>
-                    <p class="text-gray-600 mb-2">Sep 2014 – Apr 2019 |<br> GPA: 3.53 (Cum Laude)</p>
-                    <p class="text-gray-600">Specialized in software engineering and business applications of
-                        technology.</p>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">North South University</h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Bachelor's Degree in Computer Science and Engineering</p>
+                    <p class="text-gray-400 mb-2">Sep 2014 – Apr 2019 |<br> GPA: 3.53 (Cum Laude)</p>
+                    <p class="text-gray-400">Specialized in software engineering and business applications of technology.</p>
                 </div>
-
                 <!-- Timeline Item 2 -->
-                <div
-                    class="absolute left-[-8px] top-[calc(10rem)] w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg">
-                </div>
+                <div class="absolute left-[-8px] top-[calc(10rem)] w-4 h-4 bg-accent rounded-full border-4 border-bg shadow-lg"></div>
                 <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Govt. Azizul Haque
-                        College, Bogura</h3>
-                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Higher Secondary School
-                        Certificate (Science)</p>
-                    <p class="text-gray-600">2011 – 2013</p>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Govt. Azizul Haque College, Bogura</h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Higher Secondary School Certificate (Science)</p>
+                    <p class="text-gray-400">2011 – 2013</p>
                 </div>
-
                 <!-- Timeline Item 3 -->
-                <div
-                    class="absolute left-[-8px] top-[calc(20rem)] w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg">
-                </div>
+                <div class="absolute left-[-8px] top-[calc(20rem)] w-4 h-4 bg-accent rounded-full border-4 border-bg shadow-lg"></div>
                 <div class="mb-10 ml-4 md:ml-8 animate-on-scroll">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Bogura Cantonment
-                        Public School & College</h3>
-                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Secondary School Certificate
-                        (Science)</p>
-                    <p class="text-gray-600">2009 – 2011</p>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2" style="color: var(--primary);">Bogura Cantonment Public School & College</h3>
+                    <p class="text-lg font-semibold mb-2" style="color: var(--accent);">Secondary School Certificate (Science)</p>
+                    <p class="text-gray-400">2009 – 2011</p>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- CTA Section -->
-    <section class="py-16 md:py-20 px-6 bg-gray-50">
+    <section class="py-16 md:py-20 px-6 bg-secondary">
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title" style="color: var(--primary);">Want to
-                collaborate or learn more?</h2>
-            <p class="text-xl mb-8 text-gray-600">I'm always open to discussing new opportunities and professional
-                connections.</p>
-
-            <a href="contact.html"
-                class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium text-white transition-all duration-300"
-                style="background-color: var(--accent);">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title" style="color: var(--primary);">Want to collaborate or learn more?</h2>
+            <p class="text-xl mb-8 text-gray-400">I'm always open to discussing new opportunities and professional connections.</p>
+            <a href="contact.html" class="btn-hover-effect inline-block px-8 py-3 rounded-full font-medium text-white transition-all duration-300" style="background-color: var(--accent);">
                 Let's Connect →
             </a>
         </div>
     </section>
-
     <!-- Footer -->
-    <footer class="bg-white py-12 px-6 text-gray-600">
+    <footer class="py-12 px-6">
         <div class="max-w-7xl mx-auto">
-
             <!-- Top: Name + Navigation -->
             <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-
                 <!-- Left: Name & Year -->
                 <div class="mb-6 md:mb-0">
-                    <a href="index.html" class="text-2xl font-bold text-primary">Sayed Ibn Masud</a>
-                    <p class="mt-2">© <span id="currentYear"></span> All rights reserved.</p>
+                    <a href="index.html" class="text-2xl font-bold" style="color: var(--primary);">Sayed Ibn Masud</a>
+                    <p class="mt-2 text-gray-400">© <span id="currentYear"></span> All rights reserved.</p>
                 </div>
-
                 <!-- Right: Navigation -->
                 <nav class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    <a href="index.html" class="hover:text-primary transition font-medium">Home</a>
-                    <a href="about.html" class="hover:text-primary transition font-medium">About</a>
-                    <a href="experience.html" class="hover:text-primary transition font-medium">Experience</a>
+                    <a href="index.html" class="hover:text-accent transition font-medium">Home</a>
+                    <a href="about.html" class="hover:text-accent transition font-medium">About</a>
+                    <a href="experience.html" class="hover:text-accent transition font-medium">Experience</a>
                     <a href="contact.html" class="text-accent font-medium hover:underline transition">Contact</a>
                 </nav>
             </div>
-
             <!-- Bottom: Credits -->
-            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm">
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
                 <p>
                     Designed and developed by
-                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer"
-                        class="text-accent font-medium hover:underline transition">
+                    <a href="https://www.linkedin.com/in/raiyanbinrashid/" target="_blank" rel="noopener noreferrer" class="text-accent font-medium hover:underline transition">
                         Raiyan Bin Rashid
                     </a>
                 </p>
             </div>
         </div>
     </footer>
-
     <!-- Bottom Navigation (Mobile Only) -->
     <div class="bottom-nav md:hidden" id="bottomNav">
         <div class="bottom-nav-container">
             <a href="index.html" class="nav-item" id="navHome">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
             <a href="about.html" class="nav-item active" id="navAbout">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-user"></i>
                 <span>About</span>
             </a>
             <a href="experience.html" class="nav-item" id="navExperience">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-briefcase"></i>
                 <span>Experience</span>
             </a>
             <a href="contact.html" class="nav-item" id="navContact">
+                <div class="nav-icon-bg"></div>
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
         </div>
     </div>
-
     <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Set initial theme to dark (default)
+        document.body.classList.remove('light-mode');
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+
+            // Trigger a smooth transition for all theme-dependent elements
+            document.querySelectorAll('*').forEach(el => {
+                el.style.transition = 'background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease';
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.transition = '';
+                });
+            }, 500);
+        }
+
+        themeToggle?.addEventListener('click', toggleTheme);
+        mobileThemeToggle?.addEventListener('click', toggleTheme);
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
         // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -633,7 +710,6 @@
         // Mobile behavior: Show cursor only when interacting
         if (isTouchDevice) {
             document.body.classList.add('touch-active');
-
             const hideCursor = () => {
                 cursorDot.style.display = 'none';
             };
@@ -708,7 +784,6 @@
             }
         });
 
-
         // Remove transition class when page loads
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -716,22 +791,27 @@
             }, 100);
         });
 
-        // Bottom nav click animation
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function (e) {
-                if (!this.classList.contains('active')) {
-                    // Add shake animation to the clicked item
-                    this.classList.add('shake');
+        // Bottom navigation active state
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const navItems = {
+            'index.html': 'navHome',
+            'about.html': 'navAbout',
+            'experience.html': 'navExperience',
+            'contact.html': 'navContact'
+        };
 
-                    // Remove shake class after animation completes
-                    setTimeout(() => {
-                        this.classList.remove('shake');
-                    }, 500);
-                }
-            });
+        // Reset all active states
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
         });
 
+        // Set active state for current page
+        if (navItems[currentPage]) {
+            const activeNavItem = document.getElementById(navItems[currentPage]);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+        }
     </script>
 </body>
-
 </html>
